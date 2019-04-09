@@ -5,7 +5,7 @@
 #include<string.h>
 #include<math.h>
 #define IN 99
-#define N 6
+#define N 50
 int dijkstra(int cost[][N], int source, int target);
 int main()
 {
@@ -15,16 +15,56 @@ int main()
     for(i=1;i< N;i++)
     for(j=1;j< N;j++)
     cost[i][j] = IN;
-    for(x=1;x< N;x++)
-    {
-        for(y=x+1;y< N;y++)
-        {
-            printf("Enter the weight of the path between nodes %d and %d: ",x,y);
-            scanf("%d",&w);
-            cost [x][y] = cost[y][x] = w;
-        }
-        printf("\n");
-    }
+    
+    cost [1][2] = cost[2][1] = 1;
+	cost [2][3] = cost[3][2] = 1;
+	cost [3][4] = cost[4][3] = 1;
+	cost [4][5] = cost[5][4] = 1;
+	cost [5][6] = cost[6][5] = 1;
+	cost [6][7] = cost[7][6] = 1;
+	cost [7][8] = cost[8][7] = 1;
+	cost [8][9] = cost[9][8] = 1;
+	cost [9][10] = cost[10][9] = 1;
+	cost [10][11] = cost[11][10] = 1;
+	cost [11][12] = cost[12][11] = 1;
+	cost [12][13] = cost[13][12] = 1;
+	cost [13][14] = cost[14][13] = 1;
+	cost [14][15] = cost[15][14] = 1;
+	cost [15][16] = cost[16][15] = 1;
+	cost [16][17] = cost[17][16] = 1;
+	cost [17][18] = cost[18][17] = 1;
+	cost [18][19] = cost[19][18] = 1;
+	cost [19][20] = cost[20][19] = 1;
+	cost [20][21] = cost[21][20] = 1;
+	cost [21][22] = cost[22][21] = 1;
+	cost [22][23] = cost[23][22] = 1;
+	cost [23][24] = cost[24][23] = 1;
+	cost [24][25] = cost[25][24] = 1;
+	cost [25][26] = cost[26][25] = 1;
+	cost [26][27] = cost[27][26] = 1;
+	cost [27][28] = cost[28][27] = 1;
+	cost [28][29] = cost[29][28] = 1;
+	cost [29][30] = cost[30][29] = 1;
+	cost [30][31] = cost[31][30] = 1;
+	cost [31][32] = cost[32][31] = 1;
+	cost [32][33] = cost[33][32] = 1;
+	cost [33][34] = cost[34][33] = 1;
+	cost [34][35] = cost[35][34] = 1;
+	cost [35][36] = cost[36][35] = 1;
+	cost [36][37] = cost[37][36] = 1;
+	cost [37][38] = cost[38][37] = 1;
+	cost [38][39] = cost[39][38] = 1;
+	cost [39][40] = cost[40][39] = 1;
+	cost [40][41] = cost[41][40] = 1;
+	cost [41][42] = cost[42][41] = 1;
+	cost [42][43] = cost[43][42] = 1;
+	cost [43][44] = cost[44][43] = 1;
+	cost [44][45] = cost[45][44] = 1;
+	cost [45][46] = cost[46][45] = 1;
+	cost [46][47] = cost[47][46] = 1;
+	cost [47][48] = cost[48][47] = 1;
+	cost [48][49] = cost[49][48] = 1;
+        
     printf("\nEnter the source:");
     scanf("%d", &source);
     printf("\nEnter the target");
