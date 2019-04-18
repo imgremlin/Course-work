@@ -6,9 +6,81 @@
 #include<math.h>
 #define IN 99
 #define N 55
-int dijkstra(int cost[][N], int source, int target);
+//int dijkstra(int cost[][N], int source, int target);
+
+int dijsktra(int cost[][N],int source,int target)
+{
+	char stations[52][30] = {"Akademmistechko", "Zhytomyrska", "Sviatoshyn", "Nyvky", "Beresteiska", "Shuliavska",
+							 "Politekhnichnyi Instytut", "Vokzalna", "Universytet", "Teatralna", "Khreshchatyk", "Arsenalna", "Dnipro", 
+							 "Hidropark", "Livoberezhna", "Darnytsia", "Chernihivska", "Lisova", "Syrets", "Dorohozhychi", "Lukianivska", 
+							 "Zoloti Vorota", "Palats Sportu", "Klovska", "Pecherska", "Druzhby Narodiv", "Vydubychi", "Slavutych", 
+							 "Osokorky", "Pozniaky", "Kharkivska", "Vyrlytsia", "Boryspilska", "Chervony Khutir","Heroiv Dnipra", 
+							 "Minska", "Obolon", "Pochaina", "Tarasa Shevchenka", "Kontraktova Ploshcha", "Poshtova Ploshcha", 
+							 "Maidan Nezalezhnosti", "Ploshcha Lva Tolstoho", "Olimpiiska", "Palats Ukrayina", "Lybidskav", "Demiivska", 
+							 "Holosiivska", "Vasylkivska", "Vystavkovyi Tsentr", "Ipodrom", "Teremky"};
+    int dist[N],prev[N],selected[N]={0},i,m,min,start,d,j;
+    char path[N][N];
+    for(i=1;i< N;i++)
+    {
+        dist[i] = IN;
+        prev[i] = -1;
+    }
+    start = source;
+    selected[start]=1;
+    dist[start] = 0;
+    while(selected[target] == 0)
+    {
+        min = IN;
+        m = 0;
+        for(i=1;i< N;i++)
+        {
+            d = dist[start] +cost[start][i];
+            if(d< dist[i]&&selected[i]==0)
+            {
+                dist[i] = d;
+                prev[i] = start;
+            }
+            if(min>dist[i] && selected[i]==0)
+            {
+                min = dist[i];
+                m = i;
+            }
+        }
+        start = m;
+        selected[start] = 1;
+    }
+    start = target;
+    j = 0;
+    while(start != -1)
+    {
+        //path[j++] = stations[start-1];
+        strncpy(path[j++], stations[start-1], 25);
+        start = prev[start];
+    }
+    int amount = j;
+    //path[j]='\0';
+    //strrev(path);
+    for (i = amount; i >= 0; i--)
+	{
+		if (strlen(path[i]) != 0)
+		{	
+			
+			for(j=0; j<strlen(path[i]); j++)
+			{
+				printf("%c", path[i][j]);
+			}
+			printf("\n");
+		}
+		//printf("'%s'\n", path[i]); //, strlen(path[i])
+	}
+    //printf("%s", path);
+    return dist[target];
+    //printf("%s", path)
+}
+
 int main()
 {
+	int dijkstra();
     int cost[N][N],i,j,w,ch,co;
     int source, target,x,y, amount;
     for(i=1;i< N;i++)
@@ -79,73 +151,4 @@ int main()
     printf("\n");
     co = dijsktra(cost,source,target);
     printf("\nEstimated time: %d min",co);
-}
-int dijsktra(int cost[][N],int source,int target)
-{
-	char stations[49][30] = {"Akademmistechko", "Zhytomyrska", "Sviatoshyn", "Nyvky", "Beresteiska", "Shuliavska",
-							 "Politekhnichnyi Instytut", "Vokzalna", "Universytet", "Teatralna", "Khreshchatyk", "Arsenalna", "Dnipro", 
-							 "Hidropark", "Livoberezhna", "Darnytsia", "Chernihivska", "Lisova", "Syrets", "Dorohozhychi", "Lukianivska", 
-							 "Zoloti Vorota", "Palats Sportu", "Klovska", "Pecherska", "Druzhby Narodiv", "Vydubychi", "Slavutych", 
-							 "Osokorky", "Pozniaky", "Kharkivska", "Vyrlytsia", "Boryspilska", "Chervony Khutir","Heroiv Dnipra", 
-							 "Minska", "Obolon", "Pochaina", "Tarasa Shevchenka", "Kontraktova Ploshcha", "Poshtova Ploshcha", 
-							 "Maidan Nezalezhnosti", "Ploshcha Lva Tolstoho", "Olimpiiska", "Palats Ukrayina", "Lybidskav", "Demiivska", 
-							 "Holosiivska", "Vasylkivska", "Vystavkovyi Tsentr", "Ipodrom", "Teremky" };
-    int dist[N],prev[N],selected[N]={0},i,m,min,start,d,j;
-    char path[N][N];
-    for(i=1;i< N;i++)
-    {
-        dist[i] = IN;
-        prev[i] = -1;
-    }
-    start = source;
-    selected[start]=1;
-    dist[start] = 0;
-    while(selected[target] == 0)
-    {
-        min = IN;
-        m = 0;
-        for(i=1;i< N;i++)
-        {
-            d = dist[start] +cost[start][i];
-            if(d< dist[i]&&selected[i]==0)
-            {
-                dist[i] = d;
-                prev[i] = start;
-            }
-            if(min>dist[i] && selected[i]==0)
-            {
-                min = dist[i];
-                m = i;
-            }
-        }
-        start = m;
-        selected[start] = 1;
-    }
-    start = target;
-    j = 0;
-    while(start != -1)
-    {
-        //path[j++] = stations[start-1];
-        strncpy(path[j++], stations[start-1], 25);
-        start = prev[start];
-    }
-    int amount = j;
-    //path[j]='\0';
-    //strrev(path);
-    for (i = amount; i >= 0; i--)
-	{
-		if (strlen(path[i]) != 0)
-		{	
-			
-			for(j=0; j<strlen(path[i]); j++)
-			{
-				printf("%c", path[i][j]);
-			}
-			printf("\n");
-		}
-		//printf("'%s'\n", path[i]); //, strlen(path[i])
-	}
-    //printf("%s", path);
-    return dist[target];
-    //printf("%s", path)
 }
