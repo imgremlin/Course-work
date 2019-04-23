@@ -13,9 +13,9 @@
 
 using namespace std;
 
-void Choosestation_red(int switcher2)
+int Choosestation_red(int switcher2)
 {
-  
+  int k;
     system("cls");
     switch (switcher2)
     {
@@ -89,6 +89,178 @@ void Choosestation_red(int switcher2)
             Choosestation_red(1);
     if (choice == ENTER || choice == SPACE)
     {
+        if (switcher2 == 1)
+        	k = 1;
+        	return k;
+        	printf("%d", k);
+  			
+        //if (switcher1 == 2)
+           // Help(0);
+        //if (switcher1 == 3)
+            //TopChart();
+    
+}}
+
+
+
+
+int Choosestation_green(int switcher3)
+{
+  
+    system("cls");
+    switch (switcher3)
+    {
+    case 1:
+        cout << "\n\n\n                    <<  Syrets!  >>\n\n                    Dorohozhychi\n\n                    Lukianivska\n\n                    Zoloti Vorota\n\n                    Palats Sportu\n\n                    Klovska\n\n                    Pecherska\n\n                    Druzhby Narodiv\n\n                    Vydubychi\n\n                    Slavutych\n\n                    Osokorky\n\n                    Pozniaky\n\n                    Kharkivska\n\n                    Vyrlytsia\n\n                    Boryspilska\n\n                    Chervony Khutir\n\n";
+		break;
+    case 2:
+        cout << "\n\n\n                    Syrets\n\n                    <<  Dorohozhychi!  >>\n\n                    Lukianivska\n\n                    Zoloti Vorota\n\n                    Palats Sportu\n\n                    Klovska\n\n                    Pecherska\n\n                    Druzhby Narodiv\n\n                    Vydubychi\n\n                    Slavutych\n\n                    Osokorky\n\n                    Pozniaky\n\n                    Kharkivska\n\n                    Vyrlytsia\n\n                    Boryspilska\n\n                    Chervony Khutir\n\n";
+        break;
+    case 3:
+        cout << "\n\n\n                    Syrets\n\n                    Dorohozhychi\n\n                    <<  Lukianivska!  >>\n\n                    Zoloti Vorota\n\n                    Palats Sportu\n\n                    Klovska\n\n                    Pecherska\n\n                    Druzhby Narodiv\n\n                    Vydubychi\n\n                    Slavutych\n\n                    Osokorky\n\n                    Pozniaky\n\n                    Kharkivska\n\n                    Vyrlytsia\n\n                    Boryspilska\n\n                    Chervony Khutir\n\n";
+        break;
+    case 4:
+        cout << "\n\n\n                    Syrets\n\n                    Dorohozhychi\n\n                    Lukianivska\n\n                    <<  Zoloti Vorota!  >>\n\n                    Palats Sportu\n\n                    Klovska\n\n                    Pecherska\n\n                    Druzhby Narodiv\n\n                    Vydubychi\n\n                    Slavutych\n\n                    Osokorky\n\n                    Pozniaky\n\n                    Kharkivska\n\n                    Vyrlytsia\n\n                    Boryspilska\n\n                    Chervony Khutir\n\n";
+        break;
+     case 5:
+        cout << "\n\n\n                    Syrets\n\n                    Dorohozhychi\n\n                    Lukianivska\n\n                    Zoloti Vorota\n\n                    <<  Palats Sportu!  >>\n\n                    Klovska\n\n                    Pecherska\n\n                    Druzhby Narodiv\n\n                    Vydubychi\n\n                    Slavutych\n\n                    Osokorky\n\n                    Pozniaky\n\n                    Kharkivska\n\n                    Vyrlytsia\n\n                    Boryspilska\n\n                    Chervony Khutir\n\n";
+        break;
+	case 6:
+        cout << "\n\n\n                    Syrets\n\n                    Dorohozhychi\n\n                    Lukianivska\n\n                    Zoloti Vorota\n\n                    Palats Sportu\n\n                    <<  Klovska!  >>\n\n                    Pecherska\n\n                    Druzhby Narodiv\n\n                    Vydubychi\n\n                    Slavutych\n\n                    Osokorky\n\n                    Pozniaky\n\n                    Kharkivska\n\n                    Vyrlytsia\n\n                    Boryspilska\n\n                    Chervony Khutir\n\n";
+        break;
+	case 7:
+        cout << "\n\n\n                    Syrets\n\n                    Dorohozhychi\n\n                    Lukianivska\n\n                    Zoloti Vorota\n\n                    Palats Sportu\n\n                    Klovska\n\n                    <<  Pecherska!  >>\n\n                    Druzhby Narodiv\n\n                    Vydubychi\n\n                    Slavutych\n\n                    Osokorky\n\n                    Pozniaky\n\n                    Kharkivska\n\n                    Vyrlytsia\n\n                    Boryspilska\n\n                    Chervony Khutir\n\n";
+        break;
+	case 8:
+        cout << "\n\n\n                    Syrets\n\n                    Dorohozhychi\n\n                    Lukianivska\n\n                    Zoloti Vorota\n\n                    Palats Sportu\n\n                    Klovska\n\n                    Pecherska\n\n                    <<  Druzhby Narodiv!  >>\n\n                    Vydubychi\n\n                    Slavutych\n\n                    Osokorky\n\n                    Pozniaky\n\n                    Kharkivska\n\n                    Vyrlytsia\n\n                    Boryspilska\n\n                    Chervony Khutir\n\n";
+        break;
+	case 9:
+        cout << "\n\n\n                    Syrets\n\n                    Dorohozhychi\n\n                    Lukianivska\n\n                    Zoloti Vorota\n\n                    Palats Sportu\n\n                    Klovska\n\n                    Pecherska\n\n                    Druzhby Narodiv\n\n                    <<  Vydubychi!  >>\n\n                    Slavutych\n\n                    Osokorky\n\n                    Pozniaky\n\n                    Kharkivska\n\n                    Vyrlytsia\n\n                    Boryspilska\n\n                    Chervony Khutir\n\n";
+        break;
+	case 10:
+        cout << "\n\n\n                    Syrets\n\n                    Dorohozhychi\n\n                    Lukianivska\n\n                    Zoloti Vorota\n\n                    Palats Sportu\n\n                    Klovska\n\n                    Pecherska\n\n                    Druzhby Narodiv\n\n                    Vydubychi\n\n                    <<  Slavutych!  >>\n\n                    Osokorky\n\n                    Pozniaky\n\n                    Kharkivska\n\n                    Vyrlytsia\n\n                    Boryspilska\n\n                    Chervony Khutir\n\n";
+        break;		
+	case 11:
+        cout << "\n\n\n                    Syrets\n\n                    Dorohozhychi\n\n                    Lukianivska\n\n                    Zoloti Vorota\n\n                    Palats Sportu\n\n                    Klovska\n\n                    Pecherska\n\n                    Druzhby Narodiv\n\n                    Vydubychi\n\n                    Slavutych\n\n                    <<  Osokorky!  >>\n\n                    Pozniaky\n\n                    Kharkivska\n\n                    Vyrlytsia\n\n                    Boryspilska\n\n                    Chervony Khutir\n\n";
+        break;		
+	case 12:
+        cout << "\n\n\n                    Syrets\n\n                    Dorohozhychi\n\n                    Lukianivska\n\n                    Zoloti Vorota\n\n                    Palats Sportu\n\n                    Klovska\n\n                    Pecherska\n\n                    Druzhby Narodiv\n\n                    Vydubychi\n\n                    Slavutych\n\n                    Osokorky\n\n                    <<  Pozniaky!  >>\n\n                    Kharkivska\n\n                    Vyrlytsia\n\n                    Boryspilska\n\n                    Chervony Khutir\n\n";
+        break;	
+	case 13:
+        cout << "\n\n\n                    Syrets\n\n                    Dorohozhychi\n\n                    Lukianivska\n\n                    Zoloti Vorota\n\n                    Palats Sportu\n\n                    Klovska\n\n                    Pecherska\n\n                    Druzhby Narodiv\n\n                    Vydubychi\n\n                    Slavutych\n\n                    Osokorky\n\n                    Pozniaky\n\n                    <<  Kharkivska!  >>\n\n                    Vyrlytsia\n\n                    Boryspilska\n\n                    Chervony Khutir\n\n";
+        break;	
+	case 14:
+        cout << "\n\n\n                    Syrets\n\n                    Dorohozhychi\n\n                    Lukianivska\n\n                    Zoloti Vorota\n\n                    Palats Sportu\n\n                    Klovska\n\n                    Pecherska\n\n                    Druzhby Narodiv\n\n                    Vydubychi\n\n                    Slavutych\n\n                    Osokorky\n\n                    Pozniaky\n\n                    Kharkivska\n\n                    <<  Vyrlytsia!  >>\n\n                    Boryspilska\n\n                    Chervony Khutir\n\n";
+        break;	
+	case 15:
+        cout << "\n\n\n                    Syrets\n\n                    Dorohozhychi\n\n                    Lukianivska\n\n                    Zoloti Vorota\n\n                    Palats Sportu\n\n                    Klovska\n\n                    Pecherska\n\n                    Druzhby Narodiv\n\n                    Vydubychi\n\n                    Slavutych\n\n                    Osokorky\n\n                    Pozniaky\n\n                    Kharkivska\n\n                    Vyrlytsia\n\n                    <<  Boryspilska!  >>\n\n                    Chervony Khutir\n\n";
+        break;	
+	case 16:
+        cout << "\n\n\n                    Syrets\n\n                    Dorohozhychi\n\n                    Lukianivska\n\n                    Zoloti Vorota\n\n                    Palats Sportu\n\n                    Klovska\n\n                    Pecherska\n\n                    Druzhby Narodiv\n\n                    Vydubychi\n\n                    Slavutych\n\n                    Osokorky\n\n                    Pozniaky\n\n                    Kharkivska\n\n                    Vyrlytsia\n\n                    Boryspilska\n\n                    <<  Chervony Khutir!  >>\n\n";
+        break;
+									   
+    }
+    int choice = getch();
+    if (choice == 224)
+        choice = getch();
+    if (choice == UP)
+        if (switcher3 != 1)
+            Choosestation_green(switcher3 - 1);
+        else
+            Choosestation_green(16);
+    if (choice == DOWN)
+        if (switcher3 != 16)
+            Choosestation_green(switcher3 + 1);
+        else
+            Choosestation_green(1);
+    if (choice == ENTER || choice == SPACE)
+    {
+        if (switcher3 == 1){
+        	//Chooseline(1);
+  			};
+        //if (switcher1 == 2)
+           // Help(0);
+        //if (switcher1 == 3)
+            //TopChart();
+    
+}}
+
+int Choosestation_blue(int switcher2)
+{
+  
+    system("cls");
+    switch (switcher2)
+    {
+    case 1:
+        cout << "\n\n\n                    <<  Heroiv Dnipra!  >>\n\n                    Minska\n\n                    Obolon\n\n                    Pochaina\n\n                    Tarasa Shevchenka\n\n                    Kontraktova Ploshcha\n\n                    Poshtova Ploshcha\n\n                    Maidan Nezalezhnosti\n\n                    Ploshcha Lva Tolstoho\n\n                    Olimpiiska\n\n                    Palats Ukrayina\n\n                    Lybidska\n\n                    Demiivska\n\n                    Holosiivska\n\n                    Vasylkivska\n\n                    Vystavkovyi Tsentr\n\n                    Ipodrom\n\n                    Teremky\n\n";
+        break;
+    case 2:
+        cout << "\n\n\n                    Heroiv Dnipra\n\n                    <<  Minska!  >>\n\n                    Obolon\n\n                    Pochaina\n\n                    Tarasa Shevchenka\n\n                    Kontraktova Ploshcha\n\n                    Poshtova Ploshcha\n\n                    Maidan Nezalezhnosti\n\n                    Ploshcha Lva Tolstoho\n\n                    Olimpiiska\n\n                    Palats Ukrayina\n\n                    Lybidska\n\n                    Demiivska\n\n                    Holosiivska\n\n                    Vasylkivska\n\n                    Vystavkovyi Tsentr\n\n                    Ipodrom\n\n                    Teremky\n\n";
+        break;
+    case 3:
+        cout << "\n\n\n                    Heroiv Dnipra\n\n                    Minska\n\n                    <<  Obolon!  >>\n\n                    Pochaina\n\n                    Tarasa Shevchenka\n\n                    Kontraktova Ploshcha\n\n                    Poshtova Ploshcha\n\n                    Maidan Nezalezhnosti\n\n                    Ploshcha Lva Tolstoho\n\n                    Olimpiiska\n\n                    Palats Ukrayina\n\n                    Lybidska\n\n                    Demiivska\n\n                    Holosiivska\n\n                    Vasylkivska\n\n                    Vystavkovyi Tsentr\n\n                    Ipodrom\n\n                    Teremky\n\n";
+        break;
+    case 4:
+        cout << "\n\n\n                    Heroiv Dnipra\n\n                    Minska\n\n                    Obolon\n\n                    <<  Pochaina!  >>\n\n                    Tarasa Shevchenka\n\n                    Kontraktova Ploshcha\n\n                    Poshtova Ploshcha\n\n                    Maidan Nezalezhnosti\n\n                    Ploshcha Lva Tolstoho\n\n                    Olimpiiska\n\n                    Palats Ukrayina\n\n                    Lybidska\n\n                    Demiivska\n\n                    Holosiivska\n\n                    Vasylkivska\n\n                    Vystavkovyi Tsentr\n\n                    Ipodrom\n\n                    Teremky\n\n";
+        break;
+     case 5:
+        cout << "\n\n\n                    Heroiv Dnipra\n\n                    Minska\n\n                    Obolon\n\n                    Pochaina\n\n                    <<  Tarasa Shevchenka!  >>\n\n                    Kontraktova Ploshcha\n\n                    Poshtova Ploshcha\n\n                    Maidan Nezalezhnosti\n\n                    Ploshcha Lva Tolstoho\n\n                    Olimpiiska\n\n                    Palats Ukrayina\n\n                    Lybidska\n\n                    Demiivska\n\n                    Holosiivska\n\n                    Vasylkivska\n\n                    Vystavkovyi Tsentr\n\n                    Ipodrom\n\n                    Teremky\n\n";
+        break;
+	case 6:
+        cout << "\n\n\n                    Heroiv Dnipra\n\n                    Minska\n\n                    Obolon\n\n                    Pochaina\n\n                    Tarasa Shevchenka\n\n                    <<  Kontraktova Ploshcha!  >>\n\n                    Poshtova Ploshcha\n\n                    Maidan Nezalezhnosti\n\n                    Ploshcha Lva Tolstoho\n\n                    Olimpiiska\n\n                    Palats Ukrayina\n\n                    Lybidska\n\n                    Demiivska\n\n                    Holosiivska\n\n                    Vasylkivska\n\n                    Vystavkovyi Tsentr\n\n                    Ipodrom\n\n                    Teremky\n\n";
+        break;
+	case 7:
+        cout << "\n\n\n                    Heroiv Dnipra\n\n                    Minska\n\n                    Obolon\n\n                    Pochaina\n\n                    Tarasa Shevchenka\n\n                    Kontraktova Ploshcha\n\n                    <<  Poshtova Ploshcha!  >>\n\n                    Maidan Nezalezhnosti\n\n                    Ploshcha Lva Tolstoho\n\n                    Olimpiiska\n\n                    Palats Ukrayina\n\n                    Lybidska\n\n                    Demiivska\n\n                    Holosiivska\n\n                    Vasylkivska\n\n                    Vystavkovyi Tsentr\n\n                    Ipodrom\n\n                    Teremky\n\n";
+        break;
+	case 8:
+        cout << "\n\n\n                    Heroiv Dnipra\n\n                    Minska\n\n                    Obolon\n\n                    Pochaina\n\n                    Tarasa Shevchenka\n\n                    Kontraktova Ploshcha\n\n                    Poshtova Ploshcha\n\n                    <<  Maidan Nezalezhnosti!  >>\n\n                    Ploshcha Lva Tolstoho\n\n                    Olimpiiska\n\n                    Palats Ukrayina\n\n                    Lybidska\n\n                    Demiivska\n\n                    Holosiivska\n\n                    Vasylkivska\n\n                    Vystavkovyi Tsentr\n\n                    Ipodrom\n\n                    Teremky\n\n";
+        break;
+	case 9:
+        cout << "\n\n\n                    Heroiv Dnipra\n\n                    Minska\n\n                    Obolon\n\n                    Pochaina\n\n                    Tarasa Shevchenka\n\n                    Kontraktova Ploshcha\n\n                    Poshtova Ploshcha\n\n                    Maidan Nezalezhnosti\n\n                    <<  Ploshcha Lva Tolstoho!  >>\n\n                    Olimpiiska\n\n                    Palats Ukrayina\n\n                    Lybidska\n\n                    Demiivska\n\n                    Holosiivska\n\n                    Vasylkivska\n\n                    Vystavkovyi Tsentr\n\n                    Ipodrom\n\n                    Teremky\n\n";
+        break;
+	case 10:
+        cout << "\n\n\n                    Heroiv Dnipra\n\n                    Minska\n\n                    Obolon\n\n                    Pochaina\n\n                    Tarasa Shevchenka\n\n                    Kontraktova Ploshcha\n\n                    Poshtova Ploshcha\n\n                    Maidan Nezalezhnosti\n\n                    Ploshcha Lva Tolstoho\n\n                    <<  Olimpiiska!  >>\n\n                    Palats Ukrayina\n\n                    Lybidska\n\n                    Demiivska\n\n                    Holosiivska\n\n                    Vasylkivska\n\n                    Vystavkovyi Tsentr\n\n                    Ipodrom\n\n                    Teremky\n\n";
+        break;		
+	case 11:
+        cout << "\n\n\n                    Heroiv Dnipra\n\n                    Minska\n\n                    Obolon\n\n                    Pochaina\n\n                    Tarasa Shevchenka\n\n                    Kontraktova Ploshcha\n\n                    Poshtova Ploshcha\n\n                    Maidan Nezalezhnosti\n\n                    Ploshcha Lva Tolstoho\n\n                    Olimpiiska\n\n                    <<  Palats Ukrayina!  >>\n\n                    Lybidska\n\n                    Demiivska\n\n                    Holosiivska\n\n                    Vasylkivska\n\n                    Vystavkovyi Tsentr\n\n                    Ipodrom\n\n                    Teremky\n\n";
+        break;		
+	case 12:
+        cout << "\n\n\n                    Heroiv Dnipra\n\n                    Minska\n\n                    Obolon\n\n                    Pochaina\n\n                    Tarasa Shevchenka\n\n                    Kontraktova Ploshcha\n\n                    Poshtova Ploshcha\n\n                    Maidan Nezalezhnosti\n\n                    Ploshcha Lva Tolstoho\n\n                    Olimpiiska\n\n                    Palats Ukrayina\n\n                    <<  Lybidska!  >>\n\n                    Demiivska\n\n                    Holosiivska\n\n                    Vasylkivska\n\n                    Vystavkovyi Tsentr\n\n                    Ipodrom\n\n                    Teremky\n\n";
+        break;	
+	case 13:
+        cout << "\n\n\n                    Heroiv Dnipra\n\n                    Minska\n\n                    Obolon\n\n                    Pochaina\n\n                    Tarasa Shevchenka\n\n                    Kontraktova Ploshcha\n\n                    Poshtova Ploshcha\n\n                    Maidan Nezalezhnosti\n\n                    Ploshcha Lva Tolstoho\n\n                    Olimpiiska\n\n                    Palats Ukrayina\n\n                    Lybidska\n\n                    <<  Demiivska!  >>\n\n                    Holosiivska\n\n                    Vasylkivska\n\n                    Vystavkovyi Tsentr\n\n                    Ipodrom\n\n                    Teremky\n\n";
+        break;	
+	case 14:
+        cout << "\n\n\n                    Heroiv Dnipra\n\n                    Minska\n\n                    Obolon\n\n                    Pochaina\n\n                    Tarasa Shevchenka\n\n                    Kontraktova Ploshcha\n\n                    Poshtova Ploshcha\n\n                    Maidan Nezalezhnosti\n\n                    Ploshcha Lva Tolstoho\n\n                    Olimpiiska\n\n                    Palats Ukrayina\n\n                    Lybidska\n\n                    Demiivska\n\n                    <<  Holosiivska!  >>\n\n                    Vasylkivska\n\n                    Vystavkovyi Tsentr\n\n                    Ipodrom\n\n                    Teremky\n\n";
+        break;	
+	case 15:
+        cout << "\n\n\n                    Heroiv Dnipra\n\n                    Minska\n\n                    Obolon\n\n                    Pochaina\n\n                    Tarasa Shevchenka\n\n                    Kontraktova Ploshcha\n\n                    Poshtova Ploshcha\n\n                    Maidan Nezalezhnosti\n\n                    Ploshcha Lva Tolstoho\n\n                    Olimpiiska\n\n                    Palats Ukrayina\n\n                    Lybidska\n\n                    Demiivska\n\n                    Holosiivska\n\n                    <<  Vasylkivska!  >>\n\n                    Vystavkovyi Tsentr\n\n                    Ipodrom\n\n                    Teremky\n\n";
+        break;	
+	case 16:
+        cout << "\n\n\n                    Heroiv Dnipra\n\n                    Minska\n\n                    Obolon\n\n                    Pochaina\n\n                    Tarasa Shevchenka\n\n                    Kontraktova Ploshcha\n\n                    Poshtova Ploshcha\n\n                    Maidan Nezalezhnosti\n\n                    Ploshcha Lva Tolstoho\n\n                    Olimpiiska\n\n                    Palats Ukrayina\n\n                    Lybidska\n\n                    Demiivska\n\n                    Holosiivska\n\n                    Vasylkivska\n\n                    <<  Vystavkovyi Tsentr!  >>\n\n                    Ipodrom\n\n                    Teremky\n\n";
+        break;
+	case 17:
+        cout << "\n\n\n                    Heroiv Dnipra\n\n                    Minska\n\n                    Obolon\n\n                    Pochaina\n\n                    Tarasa Shevchenka\n\n                    Kontraktova Ploshcha\n\n                    Poshtova Ploshcha\n\n                    Maidan Nezalezhnosti\n\n                    Ploshcha Lva Tolstoho\n\n                    Olimpiiska\n\n                    Palats Ukrayina\n\n                    Lybidska\n\n                    Demiivska\n\n                    Holosiivska\n\n                    Vasylkivska\n\n                    Vystavkovyi Tsentr\n\n                    <<  Ipodrom!  >>\n\n                    Teremky\n\n";
+        break;		
+	case 18:
+        cout << "\n\n\n                    Heroiv Dnipra\n\n                    Minska\n\n                    Obolon\n\n                    Pochaina\n\n                    Tarasa Shevchenka\n\n                    Kontraktova Ploshcha\n\n                    Poshtova Ploshcha\n\n                    Maidan Nezalezhnosti\n\n                    Ploshcha Lva Tolstoho\n\n                    Olimpiiska\n\n                    Palats Ukrayina\n\n                    Lybidska\n\n                    Demiivska\n\n                    Holosiivska\n\n                    Vasylkivska\n\n                    Vystavkovyi Tsentr\n\n                    Ipodrom\n\n                    <<  Teremky!  >>\n\n";
+        break;									   
+    }
+    int choice = getch();
+    if (choice == 224)
+        choice = getch();
+    if (choice == UP)
+        if (switcher2 != 1)
+            Choosestation_blue(switcher2 - 1);
+        else
+            Choosestation_blue(18);
+    if (choice == DOWN)
+        if (switcher2 != 18)
+            Choosestation_blue(switcher2 + 1);
+        else
+            Choosestation_blue(1);
+    if (choice == ENTER || choice == SPACE)
+    {
         if (switcher2 == 1){
         	//Chooseline(1);
   			};
@@ -99,9 +271,7 @@ void Choosestation_red(int switcher2)
     
 }}
 
-
-
-void Chooseline(int switcher1)
+int Chooseline(int switcher1)
 {
   
     system("cls");
@@ -135,19 +305,18 @@ void Chooseline(int switcher1)
             Chooseline(1);
     if (choice == ENTER || choice == SPACE)
     {
-        if (switcher1 == 1){
+        if (switcher1 == 1)
         	Choosestation_red(1);
-  			};
-        //if (switcher1 == 2)
-           // Help(0);
-        //if (switcher1 == 3)
-            //TopChart();
+        if (switcher1 == 2)
+           Choosestation_green(1);
+        if (switcher1 == 3)
+            Choosestation_blue(1);
     
 }}
 
 
 
-void StartMenu(int switcher)
+int StartMenu(int switcher)
 {
   //load_scores();
     system("cls");
@@ -183,17 +352,13 @@ void StartMenu(int switcher)
     {
         if (switcher == 1){
         	Chooseline(1);
-        //clear_table();
-    //game_mode();
+        
   };
         if (switcher == 2)
-           // Help(0);
         if (switcher == 3)
-            //TopChart();
         if (switcher == 4)
             exit(0);
     }
-    //save_scores();
 }
 
 
@@ -202,7 +367,10 @@ void StartMenu(int switcher)
 
 int main()
 {
+	int x;
 	StartMenu(1);
+	x = Choosestation_red(1);
+	cout<<x;
 	return 0;
 	
 }
