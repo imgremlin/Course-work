@@ -353,8 +353,8 @@ int Chooseline(int switcher1)
 
 
 
-int StartMenu(int switcher)
-{	int y;
+int StartMenu(int switcher, int &y, int &z)
+{//	int y,z;
     system("cls");
     switch (switcher)
     {
@@ -376,26 +376,25 @@ int StartMenu(int switcher)
         choice = getch();
     if (choice == UP)
         if (switcher != 1)
-            StartMenu(switcher - 1);
+            StartMenu(switcher - 1, y, z);
         else
-            StartMenu(4);
+            StartMenu(4, y, z);
     if (choice == DOWN)
         if (switcher != 4)
-            StartMenu(switcher + 1);
+            StartMenu(switcher + 1,y, z);
         else
-            StartMenu(1);
+            StartMenu(1, y, z);
     if (choice == ENTER || choice == SPACE)
     {
         if (switcher == 1){
         	y = Chooseline(1);
+        	z = Chooseline(1);
         
   };
         if (switcher == 2)
         if (switcher == 3)
         if (switcher == 4)
-            exit(0);
-        //int y = Chooseline(1);
-		cout<<y;    
+            exit(0);  
     }
 }
 
@@ -405,8 +404,9 @@ int StartMenu(int switcher)
 
 int main()
 {
-	int x;
-	x = StartMenu(1);
+	int x,y, z;
+	StartMenu(1, y, z);
+	cout<<y<<endl<<z;
 	return 0;
 	
 }
