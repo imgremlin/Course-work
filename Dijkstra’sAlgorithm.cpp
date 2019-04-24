@@ -1,16 +1,24 @@
-/*https://www.codewithc.com/dijkstras-algorithm-in-c/*/
-#include<stdio.h>
-#include<conio.h>
+#define ESC 27
+#define ENTER 13
+#define LEFT 75
+#define RIGHT 77
+#define UP 72
+#define DOWN 80
+#define SPACE 32
+#include <iostream>
+#include <stdio.h>
+#include <conio.h>
+#include <string.h>
+#include <stdlib.h> 
 #include<process.h>
-#include<string.h>
 #include<math.h>
-#define IN 99
+#include<windows.h>
+#define INF 99
 #define N 55
-//int dijkstra(int cost[][N], int source, int target);
 
-int dijsktra(int cost[][N],int source,int target)
-{
-	char stations[52][30] = {"Akademmistechko", "Zhytomyrska", "Sviatoshyn", "Nyvky", "Beresteiska", "Shuliavska",
+using namespace std;
+
+char stations[52][30] = {"Akademmistechko", "Zhytomyrska", "Sviatoshyn", "Nyvky", "Beresteiska", "Shuliavska",
 							 "Politekhnichnyi Instytut", "Vokzalna", "Universytet", "Teatralna", "Khreshchatyk", "Arsenalna", "Dnipro", 
 							 "Hidropark", "Livoberezhna", "Darnytsia", "Chernihivska", "Lisova", "Syrets", "Dorohozhychi", "Lukianivska", 
 							 "Zoloti Vorota", "Palats Sportu", "Klovska", "Pecherska", "Druzhby Narodiv", "Vydubychi", "Slavutych", 
@@ -18,11 +26,15 @@ int dijsktra(int cost[][N],int source,int target)
 							 "Minska", "Obolon", "Pochaina", "Tarasa Shevchenka", "Kontraktova Ploshcha", "Poshtova Ploshcha", 
 							 "Maidan Nezalezhnosti", "Ploshcha Lva Tolstoho", "Olimpiiska", "Palats Ukrayina", "Lybidskav", "Demiivska", 
 							 "Holosiivska", "Vasylkivska", "Vystavkovyi Tsentr", "Ipodrom", "Teremky"};
+
+
+int dijsktra(int cost[][N],int source,int target)
+{
     int dist[N],prev[N],selected[N]={0},i,m,min,start,d,j;
     char path[N][N];
     for(i=1;i< N;i++)
     {
-        dist[i] = IN;
+        dist[i] = INF;
         prev[i] = -1;
     }
     start = source;
@@ -30,7 +42,7 @@ int dijsktra(int cost[][N],int source,int target)
     dist[start] = 0;
     while(selected[target] == 0)
     {
-        min = IN;
+        min = INF;
         m = 0;
         for(i=1;i< N;i++)
         {
@@ -53,13 +65,10 @@ int dijsktra(int cost[][N],int source,int target)
     j = 0;
     while(start != -1)
     {
-        //path[j++] = stations[start-1];
         strncpy(path[j++], stations[start-1], 25);
         start = prev[start];
     }
     int amount = j;
-    //path[j]='\0';
-    //strrev(path);
     for (i = amount; i >= 0; i--)
 	{
 		if (strlen(path[i]) != 0)
@@ -71,21 +80,238 @@ int dijsktra(int cost[][N],int source,int target)
 			}
 			printf("\n");
 		}
-		//printf("'%s'\n", path[i]); //, strlen(path[i])
 	}
-    //printf("%s", path);
     return dist[target];
-    //printf("%s", path)
 }
+
+
+int Choosestation_red(int switcher)
+{
+  	int k, j, lenth;
+    system("cls");
+    cout<<endl<<endl;
+    for (int i=0; i<18; i++)
+    {	
+    	lenth = 23 - strlen(stations[i])/2;
+    	if (i==switcher-1)
+		{
+			for(int j=0; j<lenth; j++) cout<<" ";
+    		cout<<"<<  "<<stations[i]<<"!  >>"<<endl<<endl;
+		} 
+    	else {
+    			for(int j=0; j<lenth+4; j++) cout<<" ";
+    			cout<<stations[i]<<endl<<endl;
+				}
+		k = i;		
+	}
+    
+    int choice = getch();
+    if (choice == 224)
+        choice = getch();
+    if (choice == UP)
+        if (switcher != 1)
+            Choosestation_red(switcher - 1);
+        else
+            Choosestation_red(18);
+    if (choice == DOWN)
+        if (switcher != 18)
+            Choosestation_red(switcher + 1);
+        else
+            Choosestation_red(1);
+			      
+    if (choice == ENTER || choice == SPACE)
+      	return switcher;
+      	
+}
+
+
+int Choosestation_green(int switcher)
+{
+  	int k, j, lenth;
+    system("cls");
+    cout<<endl<<endl;
+    for (int i=18; i<18+16; i++)
+    {	
+    	lenth = 23 - strlen(stations[i])/2;
+    	if (i==switcher-1+18)
+		{
+			for(int j = 0; j<lenth; j++) cout<<" ";
+    		cout<<"<<  "<<stations[i]<<"!  >>"<<endl<<endl;
+		} 
+    	else {
+    			for(int j = 0; j<lenth+4; j++) cout<<" ";
+    			cout<<stations[i]<<endl<<endl;
+				}
+		k = i;		
+	}
+	
+    int choice = getch();
+    if (choice == 224)
+        choice = getch();
+    if (choice == UP)
+        if (switcher != 1)
+            Choosestation_green(switcher - 1);
+        else
+            Choosestation_green(16);
+    if (choice == DOWN)
+        if (switcher != 16)
+            Choosestation_green(switcher + 1);
+        else
+            Choosestation_green(1);
+    if (choice == ENTER || choice == SPACE)
+    	return switcher+18;
+    }
+
+int Choosestation_blue(int switcher)
+{
+  	int k, j, lenth;
+    system("cls");
+    cout<<endl<<endl;
+    for (int i=18+16; i<18+16+18; i++)
+    {	
+    	lenth = 23 - strlen(stations[i])/2;
+    	if (i==switcher-1+18+16)
+		{
+			for(int j=0; j<lenth; j++) cout<<" ";
+    		cout<<"<<  "<<stations[i]<<"!  >>"<<endl<<endl;
+		} 
+    	else {
+    			for(int j=0; j<lenth+4; j++) cout<<" ";
+    			cout<<stations[i]<<endl<<endl;
+				}
+		k = i;		
+	}
+	
+    int choice = getch();
+    if (choice == 224)
+        choice = getch();
+    if (choice == UP)
+        if (switcher != 1)
+            Choosestation_blue(switcher - 1);
+        else
+            Choosestation_blue(18);
+    if (choice == DOWN)
+        if (switcher != 18)
+            Choosestation_blue(switcher + 1);
+        else
+            Choosestation_blue(1);
+    if (choice == ENTER || choice == SPACE)
+    	return switcher+18+16;
+    
+}
+
+int Chooseline(int switcher)
+{
+	char lines[3][15] = {"RED LINE", "GREEN LINE", "BLUE LINE"};
+    int k, j, l, lenth;
+    system("cls");
+    
+    cout<<endl<<endl;
+    for (int i=0; i<3; i++)
+    {	
+    	lenth = 23 - strlen(lines[i])/2;
+    	if (i==switcher-1)
+		{
+			for(int j=0; j<lenth; j++) cout<<" ";
+    		cout<<"<<  "<<lines[i]<<"!  >>"<<endl<<endl;
+		} 
+    	else {
+    			for(int j=0; j<lenth+4; j++) cout<<" ";
+    			cout<<lines[i]<<endl<<endl;
+				}
+	}
+	
+    int choice = getch();
+    if (choice == 224)
+        choice = getch();
+    if (choice == UP)
+        if (switcher != 1)
+            Chooseline(switcher - 1);
+        else
+            Chooseline(3);
+    if (choice == DOWN)
+        if (switcher != 3)
+            Chooseline(switcher + 1);
+        else
+            Chooseline(1);
+    if (choice == ENTER || choice == SPACE)
+    {
+        if (switcher == 1)
+        	l = Choosestation_red(1);
+        if (switcher == 2)
+           l = Choosestation_green(1);
+        if (switcher == 3)
+            l = Choosestation_blue(1);
+        return l;    
+}}
+
+
+
+int StartMenu(int switcher, int &source, int &target)
+{
+    char menus[4][15] = {"BUILD A ROUTE", "HELP", "INFO", "EXIT"};
+    int k, j, l, lenth;
+    system("cls");
+    
+	cout<<endl<<endl;
+    for (int i=0; i<4; i++)
+    {	
+    	lenth = 23 - strlen(menus[i])/2;
+    	if (i==switcher-1)
+		{
+			for(int j=0; j<lenth; j++) cout<<" ";
+    		cout<<"<<  "<<menus[i]<<"!  >>"<<endl<<endl;
+		} 
+    	else {
+    			for(int j=0; j<lenth+4; j++) cout<<" ";
+    			cout<<menus[i]<<endl<<endl;
+				}		
+	}
+    
+    int choice = getch();
+    if (choice == 224)
+        choice = getch();
+    if (choice == UP)
+        if (switcher != 1)
+            StartMenu(switcher - 1, source, target);
+        else
+            StartMenu(4, source, target);
+    if (choice == DOWN)
+        if (switcher != 4)
+            StartMenu(switcher + 1,source, target);
+        else
+            StartMenu(1, source, target);
+    if (choice == ENTER || choice == SPACE)
+    {
+        if (switcher == 1){
+        	//cout<<"Choose the source line and station: ";
+        	source = Chooseline(1);
+        	//cout<<"Choose the source line and station: ";
+        	target = Chooseline(1);
+        
+  };
+        if (switcher == 2)
+        if (switcher == 3)
+        if (switcher == 4)
+            exit(0);  
+    }
+}
+
 
 int main()
 {
+	HWND hwnd;       
+    char Title[1024];
+    GetConsoleTitle(Title, 1024);
+    hwnd=FindWindow(NULL, Title);
+    MoveWindow(hwnd,0,0,540,720,TRUE);
+    
 	int dijkstra();
     int cost[N][N],i,j,w,ch,co;
     int source, target,x,y, amount;
     for(i=1;i< N;i++)
     for(j=1;j< N;j++)
-    cost[i][j] = IN;
+    cost[i][j] = INF;
     
     cost [1][2] = cost[2][1] = 3; //1 - akadem
 	cost [2][3] = cost[3][2] = 3;
@@ -144,11 +370,9 @@ int main()
     cost [42][11] = cost[11][42] = 2; //maidan - hrest
 	cost [23][43] = cost[43][23] = 1; //lt - palats sportu  
 	
-    printf("Enter the source: ");
-    scanf("%d", &source);
-    printf("Enter the target: ");
-    scanf("%d", &target);
-    printf("\n");
+	StartMenu(1, source, target);
     co = dijsktra(cost,source,target);
     printf("\nEstimated time: %d min",co);
+    
+	return 0;
 }
