@@ -18,14 +18,15 @@
 
 using namespace std;
 
-char stations[52][30] = {"Akademmistechko", "Zhytomyrska", "Sviatoshyn", "Nyvky", "Beresteiska", "Shuliavska",
-							 "Politekhnichnyi Instytut", "Vokzalna", "Universytet", "Teatralna", "Khreshchatyk", "Arsenalna", "Dnipro", 
-							 "Hidropark", "Livoberezhna", "Darnytsia", "Chernihivska", "Lisova", "Syrets", "Dorohozhychi", "Lukianivska", 
-							 "Zoloti Vorota", "Palats Sportu", "Klovska", "Pecherska", "Druzhby Narodiv", "Vydubychi", "Slavutych", 
-							 "Osokorky", "Pozniaky", "Kharkivska", "Vyrlytsia", "Boryspilska", "Chervony Khutir","Heroiv Dnipra", 
-							 "Minska", "Obolon", "Pochaina", "Tarasa Shevchenka", "Kontraktova Ploshcha", "Poshtova Ploshcha", 
-							 "Maidan Nezalezhnosti", "Ploshcha Lva Tolstoho", "Olimpiiska", "Palats Ukrayina", "Lybidskav", "Demiivska", 
-							 "Holosiivska", "Vasylkivska", "Vystavkovyi Tsentr", "Ipodrom", "Teremky"};
+char stations[52][30] = {"AKADEMMISTECHKO", "ZHYTOMYRSKA", "SVIATOSHYN", "NYVKY", "BERESTEISKA", "SHULIAVSKA",
+							 "POLITEKHNICHNYI INSTYTUT", "VOKZALNA", "UNIVERSYTET", "TEATRALNA", "KHRESHCHATYK", "ARSENALNA", "DNIPRO", 
+							 "HIDROPARK", "LIVOBEREZHNA", "DARNYTSIA", "CHERNIHIVSKA", "LISOVA", "SYRETS", "DOROHOZHYCHI", "LUKIANIVSKA", 
+							 "ZOLOTI VOROTA", "PALATS SPORTU", "KLOVSKA", "PECHERSKA", "DRUZHBY NARODIV", "VYDUBYCHI", "SLAVUTYCH", 
+							 "OSOKORKY", "POZNIAKY", "KHARKIVSKA", "VYRLYTSIA", "BORYSPILSKA", "CHERVONY KHUTIR","HEROIV DNIPRA", 
+							 "MINSKA", "OBOLON", "POCHAINA", "TARASA SHEVCHENKA", "KONTRAKTOVA PLOSHCHA", "POSHTOVA PLOSHCHA", 
+							 "MAIDAN NEZALEZHNOSTI", "PLOSHCHA LVA TOLSTOHO", "OLIMPIISKA", "PALATS UKRAYINA", "LYBIDSKAV", "DEMIIVSKA", 
+							 "HOLOSIIVSKA", "VASYLKIVSKA", "VYSTAVKOVYI TSENTR", "IPODROM", "TEREMKY"}
+        };
 
 
 int dijsktra(int cost[][N],int source,int target)
