@@ -18,6 +18,8 @@
 
 using namespace std;
 
+int ostanovochka = 47;
+
 char stations[52][30] = {"AKADEMMISTECHKO", "ZHYTOMYRSKA", "SVIATOSHYN", "NYVKY", "BERESTEISKA", "SHULIAVSKA",
 							 "POLITEKHNICHNYI INSTYTUT", "VOKZALNA", "UNIVERSYTET", "TEATRALNA", "KHRESHCHATYK", "ARSENALNA", "DNIPRO", 
 							 "HIDROPARK", "LIVOBEREZHNA", "DARNYTSIA", "CHERNIHIVSKA", "LISOVA", "SYRETS", "DOROHOZHYCHI", "LUKIANIVSKA", 
@@ -25,8 +27,7 @@ char stations[52][30] = {"AKADEMMISTECHKO", "ZHYTOMYRSKA", "SVIATOSHYN", "NYVKY"
 							 "OSOKORKY", "POZNIAKY", "KHARKIVSKA", "VYRLYTSIA", "BORYSPILSKA", "CHERVONY KHUTIR","HEROIV DNIPRA", 
 							 "MINSKA", "OBOLON", "POCHAINA", "TARASA SHEVCHENKA", "KONTRAKTOVA PLOSHCHA", "POSHTOVA PLOSHCHA", 
 							 "MAIDAN NEZALEZHNOSTI", "PLOSHCHA LVA TOLSTOHO", "OLIMPIISKA", "PALATS UKRAYINA", "LYBIDSKAV", "DEMIIVSKA", 
-							 "HOLOSIIVSKA", "VASYLKIVSKA", "VYSTAVKOVYI TSENTR", "IPODROM", "TEREMKY"}
-        };
+							 "HOLOSIIVSKA", "VASYLKIVSKA", "VYSTAVKOVYI TSENTR", "IPODROM", "TEREMKY"};
 
 
 int dijsktra(int cost[][N],int source,int target)
@@ -198,7 +199,7 @@ int Choosestation_blue(int switcher)
             Choosestation_blue(1);
     if (choice == ENTER || choice == SPACE)
     	return switcher+18+16;
-    
+    	
 }
 
 int Chooseline(int switcher)
@@ -248,6 +249,127 @@ int Chooseline(int switcher)
 
 
 
+
+
+
+
+
+
+
+
+
+int Choosetype(int switcher)
+{
+	char type[2][15] = {"FIND BY NAME", "CHOOSE LINE"};
+    int k, j, l, lenth;
+    system("cls");
+    
+    cout<<endl<<endl;
+    for (int i=0; i<2; i++)
+    {	
+    	lenth = 23 - strlen(type[i])/2;
+    	if (i==switcher-1)
+		{
+			for(int j=0; j<lenth; j++) cout<<" ";
+    		cout<<"<<  "<<type[i]<<"!  >>"<<endl<<endl;
+		} 
+    	else {
+    			for(int j=0; j<lenth+4; j++) cout<<" ";
+    			cout<<type[i]<<endl<<endl;
+				}
+	}
+	
+    int choice = getch();
+    if (choice == 224)
+        choice = getch();
+    if (choice == UP)
+        if (switcher != 1)
+            Choosetype(switcher - 1);
+        else
+            Choosetype(2);
+    if (choice == DOWN)
+        if (switcher != 2)
+            Choosetype(switcher + 1);
+        else
+            Choosetype(1);
+    if (choice == ENTER || choice == SPACE)
+    {
+        if (switcher == 1)
+        	cout<<"wait a little bit";
+        	
+        if (switcher == 2)
+           l = Chooseline(1);
+        return l;
+		
+		    
+}}
+
+
+
+
+
+
+
+
+
+int Choose_startend(int switcher, int &source, int &target)
+{
+	char type[3][15] = {"CHOOSE START", "CHOOSE END", "BUILD A ROUTE"};
+    int k, j,  lenth;
+    do
+	{
+	system("cls");
+    cout<<endl<<endl;
+    for (int i=0; i<3; i++)
+    {	
+    	lenth = 23 - strlen(type[i])/2;
+    	if (i==switcher-1)
+		{
+			for(int j=0; j<lenth; j++) cout<<" ";
+    		cout<<"<<  "<<type[i]<<"!  >>"<<endl<<endl;
+		} 
+    	else {
+    			for(int j=0; j<lenth+4; j++) cout<<" ";
+    			cout<<type[i]<<endl<<endl;
+				}
+	}
+    int choice = getch();
+    if (choice == 224)
+        choice = getch();
+    if (choice == UP)
+        if (switcher != 1)
+            Choose_startend(switcher - 1, source, target);
+        else
+            Choose_startend(3, source, target);
+    if (choice == DOWN)
+        if (switcher != 3)
+            Choose_startend(switcher + 1, source, target);
+        else
+            Choose_startend(1, source, target);
+            
+    
+		if (choice == ENTER || choice == SPACE)
+    	{
+        if (switcher == 1)
+        	source = Choosetype(1);
+        if (switcher == 2)
+           target = Choosetype(1);
+        if (switcher == 3)
+			ostanovochka = 4747;
+		}
+	} while(ostanovochka!=4747); 
+
+}
+
+
+
+
+
+
+
+
+
+
 int StartMenu(int switcher, int &source, int &target)
 {
     char menus[4][15] = {"BUILD A ROUTE", "HELP", "INFO", "EXIT"};
@@ -286,9 +408,9 @@ int StartMenu(int switcher, int &source, int &target)
     {
         if (switcher == 1){
         	//cout<<"Choose the source line and station: ";
-        	source = Chooseline(1);
+        	l = Choose_startend(1, source, target);
         	//cout<<"Choose the source line and station: ";
-        	target = Chooseline(1);
+        	//target = Choose_startend(1);
         
   };
         if (switcher == 2)
