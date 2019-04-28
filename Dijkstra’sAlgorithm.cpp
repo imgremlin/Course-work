@@ -19,6 +19,7 @@
 using namespace std;
 
 int ostanovochka = 47;
+int funk;
 
 char stations[52][30] = {"AKADEMMISTECHKO", "ZHYTOMYRSKA", "SVIATOSHYN", "NYVKY", "BERESTEISKA", "SHULIAVSKA",
 							 "POLITEKHNICHNYI INSTYTUT", "VOKZALNA", "UNIVERSYTET", "TEATRALNA", "KHRESHCHATYK", "ARSENALNA", "DNIPRO", 
@@ -251,10 +252,127 @@ int Chooseline(int switcher)
 
 
 
+int Choosestation_enter_menu(int switcher, int counter, char ( &dyn_stations )[10][30])
+{
+	
+    int k, j, l, lenth;
+    system("cls");
+    
+    cout<<endl<<endl;
+    for (int i=0; i<counter; i++)
+    {	
+    	lenth = 23 - strlen(dyn_stations[i])/2;
+    	if (i==switcher-1)
+		{
+			for(int j=0; j<lenth; j++) cout<<" ";
+    		cout<<"<<  "<<dyn_stations[i]<<"!  >>"<<endl<<endl;
+		} 
+    	else {
+    			for(int j=0; j<lenth+4; j++) cout<<" ";
+    			cout<<dyn_stations[i]<<endl<<endl;
+				}
+	}
+	
+    int choice = getch();
+    if (choice == 224)
+        choice = getch();
+    if (choice == UP)
+        if (switcher != 1)
+            Choosestation_enter_menu(switcher - 1, counter, dyn_stations);
+        else
+            Choosestation_enter_menu(counter, counter, dyn_stations);
+    if (choice == DOWN)
+        if (switcher != counter)
+            Choosestation_enter_menu(switcher + 1, counter, dyn_stations);
+        else
+            Choosestation_enter_menu(1, counter, dyn_stations);
+ 	if (choice == ENTER || choice == SPACE)
+    {
+    	int cmp = 0; 
+    	while(strcmp(dyn_stations[switcher-1], stations[cmp])!= 0)
+			cmp++;	
+		return cmp;		
+	}
+}
 
 
-
-
+int Choosestation_enter(int switcher)
+{
+	string str;
+	int res;
+	char enter[15];
+	int i = 0;
+	char choize;
+	int razmer = 0;
+	char dyn_stations[10][30];
+	int counter = 0;
+	string strf;
+	
+	cout<<"Enter name of stantion: ";
+	
+	do{
+		choize = getch();
+		if (choize!=ENTER)
+		{
+			cout<<choize;
+			enter[i] = choize;
+			razmer++;
+			} 
+		i++;
+	  }
+    while(choize!=ENTER);
+    
+    enter[i] = '\0';
+    char new_enter[razmer];
+	strncpy(new_enter, enter, razmer);
+	for(int i=0; i<razmer; i++)
+		new_enter[i]=(char)toupper(new_enter[i]);
+		
+	cout<<endl<<"new enter = ";	
+	for (int i=0; i<razmer; i++)
+		cout<<new_enter[i];	
+	cout<<endl;	
+	if (razmer==3)
+	{
+		strf = new_enter[0];
+		strf+=new_enter[1];
+		strf+=new_enter[2];
+	}
+	else strf = new_enter;
+		
+	cout<<"razmer = "<<razmer<<endl;
+	cout<<"strf = "<<strf<<endl;
+	for(int i=0; i<52;i++)
+	{
+		str = stations[i];
+		res = str.find(strf);
+		cout<<"str, res = "<<str<<res<<endl;
+		if (res!=-1) {
+			strncpy(dyn_stations[counter], stations[i], strlen(stations[i]));
+			counter++;
+		}
+	}
+	
+  	int k, j, lenth;
+    //system("cls");
+    
+	funk = Choosestation_enter_menu(1, counter, dyn_stations);
+	return funk;
+    //cout<<funk;
+	/*for(int i =0; i<20; i++)
+	{
+		strncpy(dyn_stations[i], stations[i], strlen(stations[i]));
+		for(int j =0; j<strlen(stations[i]); j++) cout<<stations[i][j];
+	}
+	
+	
+	for(int i = 0;i<30; i++)
+		for(int j=0;j<strlen(dyn_stations[i]); j++)
+		{
+			dyn_stations[i][j] = '\0';
+			cout<<dyn_stations[i][j];
+		}  	*/
+}
 
 
 
@@ -295,7 +413,7 @@ int Choosetype(int switcher)
     if (choice == ENTER || choice == SPACE)
     {
         if (switcher == 1)
-        	cout<<"wait a little bit";
+       		l = Choosestation_enter(1);
         	
         if (switcher == 2)
            l = Chooseline(1);
@@ -355,19 +473,15 @@ int Choose_startend(int switcher, int &source, int &target)
         if (switcher == 2)
            target = Choosetype(1);
         if (switcher == 3)
-			ostanovochka = 4747;
+        {
+        	cout<<" source = "<<source<<" target = "<<target<<endl;
+        	ostanovochka = 4747;
+		}
+			
 		}
 	} while(ostanovochka!=4747); 
 
 }
-
-
-
-
-
-
-
-
 
 
 int StartMenu(int switcher, int &source, int &target)
@@ -408,7 +522,7 @@ int StartMenu(int switcher, int &source, int &target)
     {
         if (switcher == 1){
         	//cout<<"Choose the source line and station: ";
-        	l = Choose_startend(1, source, target);
+        	Choose_startend(1, source, target);
         	//cout<<"Choose the source line and station: ";
         	//target = Choose_startend(1);
         
@@ -431,7 +545,7 @@ int main()
     
 	int dijkstra();
     int cost[N][N],i,j,w,ch,co;
-    int source, target,x,y, amount;
+    int source, target = 13200,x,y, amount;
     for(i=1;i< N;i++)
     for(j=1;j< N;j++)
     cost[i][j] = INF;
