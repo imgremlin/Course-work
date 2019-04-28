@@ -240,11 +240,11 @@ int Chooseline(int switcher)
     if (choice == ENTER || choice == SPACE)
     {
         if (switcher == 1)
-        	l = Choosestation_red(1);
+        	l = Choosestation_red(1) -1;
         if (switcher == 2)
-           l = Choosestation_green(1);
+           l = Choosestation_green(1)-1;
         if (switcher == 3)
-            l = Choosestation_blue(1);
+            l = Choosestation_blue(1)-1;
         return l;    
 }}
 
@@ -424,12 +424,6 @@ int Choosetype(int switcher)
 
 
 
-
-
-
-
-
-
 int Choose_startend(int switcher, int &source, int &target)
 {
 	char type[3][15] = {"CHOOSE START", "CHOOSE END", "BUILD A ROUTE"};
@@ -443,12 +437,68 @@ int Choose_startend(int switcher, int &source, int &target)
     	lenth = 23 - strlen(type[i])/2;
     	if (i==switcher-1)
 		{
-			for(int j=0; j<lenth; j++) cout<<" ";
-    		cout<<"<<  "<<type[i]<<"!  >>"<<endl<<endl;
+			if ((i==0)&&(source!=13200))
+			{
+				for(int j=0; j<lenth; j++) cout<<" ";
+    			cout<<"<<  "<<type[i]<<"!  >>"<<" ( "<<stations[source]<<" ) "<<endl<<endl;
+			}
+			else if ((i==0)&&(source==13200))
+			{
+				for(int j=0; j<lenth; j++) cout<<" ";
+    			cout<<"<<  "<<type[i]<<"!  >>"<<" ( "<<"NONE"<<" ) "<<endl<<endl;
+			}
+			
+			
+			if ((i==1)&&(target!=13200))
+			{
+				for(int j=0; j<lenth; j++) cout<<" ";
+    			cout<<"<<  "<<type[i]<<"!  >>"<<" ( "<<stations[target]<<" ) "<<endl<<endl;
+			}
+			else if ((i==1)&&(target==13200))
+			{
+				for(int j=0; j<lenth; j++) cout<<" ";
+    			cout<<"<<  "<<type[i]<<"!  >>"<<" ( "<<"NONE"<<" ) "<<endl<<endl;
+			}
+			
+			
+			
+			if (i==2)
+			{
+				for(int j=0; j<lenth; j++) cout<<" ";
+    			cout<<"<<  "<<type[i]<<"!  >>"<<endl<<endl;
+			}
 		} 
     	else {
-    			for(int j=0; j<lenth+4; j++) cout<<" ";
-    			cout<<type[i]<<endl<<endl;
+    			if ((i==0)&&(source!=13200))
+				{
+					for(int j=0; j<lenth+4; j++) cout<<" ";
+	    			cout<<type[i]<<" ( "<<stations[source]<<" ) "<<endl<<endl;
+				}
+				else if ((i==0)&&(source==13200))
+				{
+					for(int j=0; j<lenth+4; j++) cout<<" ";
+	    			cout<<type[i]<<" ( "<<"NONE"<<" ) "<<endl<<endl;
+				}
+				
+				
+				if ((i==1)&&(target!=13200))
+				{
+					for(int j=0; j<lenth+4; j++) cout<<" ";
+	    			cout<<type[i]<<" ( "<<stations[target]<<" ) "<<endl<<endl;
+				}
+				else if ((i==1)&&(target==13200))
+				{
+					for(int j=0; j<lenth+4; j++) cout<<" ";
+	    			cout<<type[i]<<" ( "<<"NONE"<<" ) "<<endl<<endl;
+				}
+				
+				
+				if (i==2)
+				{
+					for(int j=0; j<lenth+4; j++) cout<<" ";
+	    			cout<<type[i]<<endl<<endl;
+				}
+	    			
 				}
 	}
     int choice = getch();
