@@ -18,6 +18,7 @@
 
 using namespace std;
 
+int source = 13200, target = 13200;
 int ostanovochka = 47;
 int funk;
 
@@ -29,6 +30,100 @@ char stations[52][30] = {"AKADEMMISTECHKO", "ZHYTOMYRSKA", "SVIATOSHYN", "NYVKY"
 							 "MINSKA", "OBOLON", "POCHAINA", "TARASA SHEVCHENKA", "KONTRAKTOVA PLOSHCHA", "POSHTOVA PLOSHCHA", 
 							 "MAIDAN NEZALEZHNOSTI", "PLOSHCHA LVA TOLSTOHO", "OLIMPIISKA", "PALATS UKRAYINA", "LYBIDSKAV", "DEMIIVSKA", 
 							 "HOLOSIIVSKA", "VASYLKIVSKA", "VYSTAVKOVYI TSENTR", "IPODROM", "TEREMKY"};
+							 
+							 
+int dijsktra(int cost[][N],int source,int target);
+int Choosestation_red(int switcher);
+int Choosestation_green(int switcher);
+int Choosestation_blue(int switcher);
+int Chooseline(int switcher);
+int Choosestation_enter_menu(int switcher, int counter, char **dyn_stations );
+int Choosestation_enter(int switcher);
+int Choosetype(int switcher);
+int Choose_startend(int switcher, int &source, int &target);
+int StartMenu(int switcher, int &source, int &target);
+
+
+
+int main()
+{
+	HWND hwnd;       
+    char Title[1024];
+    GetConsoleTitle(Title, 1024);
+    hwnd=FindWindow(NULL, Title);
+    MoveWindow(hwnd,0,0,540,720,TRUE);
+    
+	int dijkstra();
+    int cost[N][N],i,j,w,ch,co;
+    int x,y, amount;
+    for(i=1;i< N;i++)
+    for(j=1;j< N;j++)
+    cost[i][j] = INF;
+    
+    cost [1][2] = cost[2][1] = 3; //1 - akadem
+	cost [2][3] = cost[3][2] = 3;
+	cost [3][4] = cost[4][3] = 2;
+	cost [4][5] = cost[5][4] = 2;
+	cost [5][6] = cost[6][5] = 4;
+	cost [6][7] = cost[7][6] = 2;
+	cost [7][8] = cost[8][7] = 4;
+	cost [8][9] = cost[9][8] = 2;
+	cost [9][10] = cost[10][9] = 2; //10 - teatr
+	cost [10][11] = cost[11][10] = 1; //11 - hrest
+	cost [11][12] = cost[12][11] = 3;
+	cost [12][13] = cost[13][12] = 2;
+	cost [13][14] = cost[14][13] = 2;
+	cost [14][15] = cost[15][14] = 3;
+	cost [15][16] = cost[16][15] = 2;
+	cost [16][17] = cost[17][16] = 3;
+	cost [18][17] = cost[17][18] = 2; //18 - lisova
+	
+	
+	cost [19][20] = cost[20][19] = 3; //19 - syrets
+	cost [20][21] = cost[21][20] = 5; 
+	cost [21][22] = cost[22][21] = 5; //22 - zoloti vorota
+	cost [22][23] = cost[23][22] = 2; //23 - palats sportu
+	cost [23][24] = cost[24][23] = 2;
+	cost [24][25] = cost[25][24] = 2;
+	cost [25][26] = cost[26][25] = 2;
+	cost [26][27] = cost[27][26] = 4;
+	cost [27][28] = cost[28][27] = 5;
+	cost [28][29] = cost[29][28] = 2;
+	cost [29][30] = cost[30][29] = 3;
+	cost [30][31] = cost[31][30] = 2;
+	cost [31][32] = cost[32][31] = 2; 
+	cost [33][32] = cost[32][33] = 2;
+	cost [33][34] = cost[34][33] = 2; //34 - chervoniy khutir
+	
+	cost [35][36] = cost[36][35] = 2; //35 - heroiv dnipra
+	cost [36][37] = cost[37][36] = 2;
+	cost [37][38] = cost[38][37] = 3;
+	cost [38][39] = cost[39][38] = 3;
+	cost [39][40] = cost[40][39] = 2; 
+	cost [40][41] = cost[41][40] = 2; 
+	cost [41][42] = cost[42][41] = 3; //42 - maidan
+	cost [42][43] = cost[43][42] = 2; //43 - plosha lva tolstogo
+	cost [43][44] = cost[44][43] = 1;
+	cost [44][45] = cost[45][44] = 3;
+	cost [45][46] = cost[46][45] = 1;
+	cost [46][47] = cost[47][46] = 3;
+	cost [47][48] = cost[48][47] = 1;
+	cost [48][49] = cost[49][48] = 3;
+	cost [50][49] = cost[49][50] = 3;
+	cost [50][51] = cost[51][50] = 2;
+	cost [52][51] = cost[51][52] = 2; //52 - teremki
+        
+    cost [22][10] = cost[10][22] = 2; //zv - teatr   
+    cost [42][11] = cost[11][42] = 2; //maidan - hrest
+	cost [23][43] = cost[43][23] = 1; //lt - palats sportu  
+	
+	StartMenu(1, source, target);
+    co = dijsktra(cost,source,target);
+    printf("\nEstimated time: %d min",co);
+    
+	return 0;
+}
+
 
 
 int dijsktra(int cost[][N],int source,int target)
@@ -121,7 +216,8 @@ int Choosestation_red(int switcher)
             Choosestation_red(switcher + 1);
         else
             Choosestation_red(1);
-			      
+	if (choice == ESC)
+		Chooseline(1);	
     if (choice == ENTER || choice == SPACE)
       	return switcher;
       	
@@ -161,6 +257,8 @@ int Choosestation_green(int switcher)
             Choosestation_green(switcher + 1);
         else
             Choosestation_green(1);
+    if (choice == ESC)
+		Chooseline(1);	        
     if (choice == ENTER || choice == SPACE)
     	return switcher+18;
     }
@@ -198,9 +296,10 @@ int Choosestation_blue(int switcher)
             Choosestation_blue(switcher + 1);
         else
             Choosestation_blue(1);
+    if (choice == ESC)
+		Chooseline(1);	        
     if (choice == ENTER || choice == SPACE)
     	return switcher+18+16;
-    	
 }
 
 int Chooseline(int switcher)
@@ -237,14 +336,16 @@ int Chooseline(int switcher)
             Chooseline(switcher + 1);
         else
             Chooseline(1);
+    if (choice == ESC)
+		Choosetype(1);	        
     if (choice == ENTER || choice == SPACE)
     {
         if (switcher == 1)
-        	l = Choosestation_red(1) -1;
+        	l = Choosestation_red(1);
         if (switcher == 2)
-           l = Choosestation_green(1)-1;
+           l = Choosestation_green(1);
         if (switcher == 3)
-            l = Choosestation_blue(1)-1;
+            l = Choosestation_blue(1);
         return l;    
 }}
 
@@ -252,11 +353,11 @@ int Chooseline(int switcher)
 
 
 
-int Choosestation_enter_menu(int switcher, int counter, char ( &dyn_stations )[10][30])
+int Choosestation_enter_menu(int switcher, int counter, char **dyn_stations )
 {
 	
     int k, j, l, lenth;
-    system("cls");
+    //system("cls");
     
     cout<<endl<<endl;
     for (int i=0; i<counter; i++)
@@ -286,12 +387,16 @@ int Choosestation_enter_menu(int switcher, int counter, char ( &dyn_stations )[1
             Choosestation_enter_menu(switcher + 1, counter, dyn_stations);
         else
             Choosestation_enter_menu(1, counter, dyn_stations);
+    if (choice == ESC)
+		Choosetype(1);	        
  	if (choice == ENTER || choice == SPACE)
     {
     	int cmp = 0; 
-    	while(strcmp(dyn_stations[switcher-1], stations[cmp])!= 0)
+    	while(strncmp(dyn_stations[switcher-1], stations[cmp], strlen(stations[cmp]))!= 0)
 			cmp++;	
-		return cmp;		
+		cout<<"cmp = "<<cmp;	
+		
+		return cmp+1;		
 	}
 }
 
@@ -300,11 +405,15 @@ int Choosestation_enter(int switcher)
 {
 	string str;
 	int res;
-	char enter[15];
+	char enter[20];
 	int i = 0;
 	char choize;
 	int razmer = 0;
-	char dyn_stations[10][30];
+	
+	char **dyn_stations = new char* [30];
+	for (int i = 0; i<30; i++)
+		dyn_stations[i] = new char [30];
+		
 	int counter = 0;
 	string strf;
 	
@@ -332,6 +441,7 @@ int Choosestation_enter(int switcher)
 	for (int i=0; i<razmer; i++)
 		cout<<new_enter[i];	
 	cout<<endl;	
+	
 	if (razmer==3)
 	{
 		strf = new_enter[0];
@@ -346,7 +456,7 @@ int Choosestation_enter(int switcher)
 	{
 		str = stations[i];
 		res = str.find(strf);
-		cout<<"str, res = "<<str<<res<<endl;
+		cout<<"str = "<<str<<" res = "<<res<<endl;
 		if (res!=-1) {
 			strncpy(dyn_stations[counter], stations[i], strlen(stations[i]));
 			counter++;
@@ -354,24 +464,21 @@ int Choosestation_enter(int switcher)
 	}
 	
   	int k, j, lenth;
-    //system("cls");
+    
+    for(int i =0; i<20; i++)
+    {
+    	for(int j =0; j<strlen(dyn_stations[i]); j++)
+    		cout<<dyn_stations[i][j];
+    	cout<<endl;	
+	}
+    	
+	
     
 	funk = Choosestation_enter_menu(1, counter, dyn_stations);
 	return funk;
-    //cout<<funk;
-	/*for(int i =0; i<20; i++)
-	{
-		strncpy(dyn_stations[i], stations[i], strlen(stations[i]));
-		for(int j =0; j<strlen(stations[i]); j++) cout<<stations[i][j];
-	}
 	
-	
-	for(int i = 0;i<30; i++)
-		for(int j=0;j<strlen(dyn_stations[i]); j++)
-		{
-			dyn_stations[i][j] = '\0';
-			cout<<dyn_stations[i][j];
-		}  	*/
+    for (int count = 0; count < 30; count++)
+        delete [] dyn_stations[count];
 }
 
 
@@ -410,6 +517,8 @@ int Choosetype(int switcher)
             Choosetype(switcher + 1);
         else
             Choosetype(1);
+    if (choice == ESC)
+		Choose_startend(1, source, target);	        
     if (choice == ENTER || choice == SPACE)
     {
         if (switcher == 1)
@@ -440,7 +549,7 @@ int Choose_startend(int switcher, int &source, int &target)
 			if ((i==0)&&(source!=13200))
 			{
 				for(int j=0; j<lenth; j++) cout<<" ";
-    			cout<<"<<  "<<type[i]<<"!  >>"<<" ( "<<stations[source]<<" ) "<<endl<<endl;
+    			cout<<"<<  "<<type[i]<<"!  >>"<<" ( "<<stations[source-1]<<" ) "<<endl<<endl;
 			}
 			else if ((i==0)&&(source==13200))
 			{
@@ -452,7 +561,7 @@ int Choose_startend(int switcher, int &source, int &target)
 			if ((i==1)&&(target!=13200))
 			{
 				for(int j=0; j<lenth; j++) cout<<" ";
-    			cout<<"<<  "<<type[i]<<"!  >>"<<" ( "<<stations[target]<<" ) "<<endl<<endl;
+    			cout<<"<<  "<<type[i]<<"!  >>"<<" ( "<<stations[target-1]<<" ) "<<endl<<endl;
 			}
 			else if ((i==1)&&(target==13200))
 			{
@@ -472,7 +581,7 @@ int Choose_startend(int switcher, int &source, int &target)
     			if ((i==0)&&(source!=13200))
 				{
 					for(int j=0; j<lenth+4; j++) cout<<" ";
-	    			cout<<type[i]<<" ( "<<stations[source]<<" ) "<<endl<<endl;
+	    			cout<<type[i]<<" ( "<<stations[source-1]<<" ) "<<endl<<endl;
 				}
 				else if ((i==0)&&(source==13200))
 				{
@@ -484,7 +593,7 @@ int Choose_startend(int switcher, int &source, int &target)
 				if ((i==1)&&(target!=13200))
 				{
 					for(int j=0; j<lenth+4; j++) cout<<" ";
-	    			cout<<type[i]<<" ( "<<stations[target]<<" ) "<<endl<<endl;
+	    			cout<<type[i]<<" ( "<<stations[target-1]<<" ) "<<endl<<endl;
 				}
 				else if ((i==1)&&(target==13200))
 				{
@@ -515,7 +624,8 @@ int Choose_startend(int switcher, int &source, int &target)
         else
             Choose_startend(1, source, target);
             
-    
+    	if (choice == ESC)
+			StartMenu(1, source, target);	
 		if (choice == ENTER || choice == SPACE)
     	{
         if (switcher == 1)
@@ -582,84 +692,4 @@ int StartMenu(int switcher, int &source, int &target)
         if (switcher == 4)
             exit(0);  
     }
-}
-
-
-int main()
-{
-	HWND hwnd;       
-    char Title[1024];
-    GetConsoleTitle(Title, 1024);
-    hwnd=FindWindow(NULL, Title);
-    MoveWindow(hwnd,0,0,540,720,TRUE);
-    
-	int dijkstra();
-    int cost[N][N],i,j,w,ch,co;
-    int source, target = 13200,x,y, amount;
-    for(i=1;i< N;i++)
-    for(j=1;j< N;j++)
-    cost[i][j] = INF;
-    
-    cost [1][2] = cost[2][1] = 3; //1 - akadem
-	cost [2][3] = cost[3][2] = 3;
-	cost [3][4] = cost[4][3] = 2;
-	cost [4][5] = cost[5][4] = 2;
-	cost [5][6] = cost[6][5] = 4;
-	cost [6][7] = cost[7][6] = 2;
-	cost [7][8] = cost[8][7] = 4;
-	cost [8][9] = cost[9][8] = 2;
-	cost [9][10] = cost[10][9] = 2; //10 - teatr
-	cost [10][11] = cost[11][10] = 1; //11 - hrest
-	cost [11][12] = cost[12][11] = 3;
-	cost [12][13] = cost[13][12] = 2;
-	cost [13][14] = cost[14][13] = 2;
-	cost [14][15] = cost[15][14] = 3;
-	cost [15][16] = cost[16][15] = 2;
-	cost [16][17] = cost[17][16] = 3;
-	cost [18][17] = cost[17][18] = 2; //18 - lisova
-	
-	
-	cost [19][20] = cost[20][19] = 3; //19 - syrets
-	cost [20][21] = cost[21][20] = 5; 
-	cost [21][22] = cost[22][21] = 5; //22 - zoloti vorota
-	cost [22][23] = cost[23][22] = 2; //23 - palats sportu
-	cost [23][24] = cost[24][23] = 2;
-	cost [24][25] = cost[25][24] = 2;
-	cost [25][26] = cost[26][25] = 2;
-	cost [26][27] = cost[27][26] = 4;
-	cost [27][28] = cost[28][27] = 5;
-	cost [28][29] = cost[29][28] = 2;
-	cost [29][30] = cost[30][29] = 3;
-	cost [30][31] = cost[31][30] = 2;
-	cost [31][32] = cost[32][31] = 2; 
-	cost [33][32] = cost[32][33] = 2;
-	cost [33][34] = cost[34][33] = 2; //34 - chervoniy khutir
-	
-	cost [35][36] = cost[36][35] = 2; //35 - heroiv dnipra
-	cost [36][37] = cost[37][36] = 2;
-	cost [37][38] = cost[38][37] = 3;
-	cost [38][39] = cost[39][38] = 3;
-	cost [39][40] = cost[40][39] = 2; 
-	cost [40][41] = cost[41][40] = 2; 
-	cost [41][42] = cost[42][41] = 3; //42 - maidan
-	cost [42][43] = cost[43][42] = 2; //43 - plosha lva tolstogo
-	cost [43][44] = cost[44][43] = 1;
-	cost [44][45] = cost[45][44] = 3;
-	cost [45][46] = cost[46][45] = 1;
-	cost [46][47] = cost[47][46] = 3;
-	cost [47][48] = cost[48][47] = 1;
-	cost [48][49] = cost[49][48] = 3;
-	cost [50][49] = cost[49][50] = 3;
-	cost [50][51] = cost[51][50] = 2;
-	cost [52][51] = cost[51][52] = 2; //52 - teremki
-        
-    cost [22][10] = cost[10][22] = 2; //zv - teatr   
-    cost [42][11] = cost[11][42] = 2; //maidan - hrest
-	cost [23][43] = cost[43][23] = 1; //lt - palats sportu  
-	
-	StartMenu(1, source, target);
-    co = dijsktra(cost,source,target);
-    printf("\nEstimated time: %d min",co);
-    
-	return 0;
 }
