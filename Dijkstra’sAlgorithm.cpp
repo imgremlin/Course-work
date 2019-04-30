@@ -357,8 +357,14 @@ int Choosestation_enter_menu(int switcher, int counter, char **dyn_stations )
 {
 	
     int k, j, l, lenth;
-    //system("cls");
-    
+    system("cls");
+    /*for(int i =0; i<10;i++)
+    {
+    	for(j=0;j<strlen(dyn_stations[i]);j++)
+    		cout<<dyn_stations[i][j];
+    	cout<<endl;	
+	}*/
+    	
     cout<<endl<<endl;
     for (int i=0; i<counter; i++)
     {	
@@ -394,7 +400,7 @@ int Choosestation_enter_menu(int switcher, int counter, char **dyn_stations )
     	int cmp = 0; 
     	while(strncmp(dyn_stations[switcher-1], stations[cmp], strlen(stations[cmp]))!= 0)
 			cmp++;	
-		cout<<"cmp = "<<cmp;	
+		//cout<<"cmp = "<<cmp;	
 		
 		return cmp+1;		
 	}
@@ -405,7 +411,7 @@ int Choosestation_enter(int switcher)
 {
 	string str;
 	int res;
-	char enter[20];
+	char *enter = new char[20];
 	int i = 0;
 	char choize;
 	int razmer = 0;
@@ -413,7 +419,10 @@ int Choosestation_enter(int switcher)
 	char **dyn_stations = new char* [30];
 	for (int i = 0; i<30; i++)
 		dyn_stations[i] = new char [30];
-		
+	for(int i =0; i<30;i++)
+		for(int j=0; j<30;j++)
+			dyn_stations[i][j] = '\0';
+	
 	int counter = 0;
 	string strf;
 	
@@ -432,15 +441,15 @@ int Choosestation_enter(int switcher)
     while(choize!=ENTER);
     
     enter[i] = '\0';
-    char new_enter[razmer];
+    char *new_enter = new char[razmer];
 	strncpy(new_enter, enter, razmer);
 	for(int i=0; i<razmer; i++)
 		new_enter[i]=(char)toupper(new_enter[i]);
 		
-	cout<<endl<<"new enter = ";	
+	/*cout<<endl<<"new enter = ";	
 	for (int i=0; i<razmer; i++)
 		cout<<new_enter[i];	
-	cout<<endl;	
+	cout<<endl;	*/
 	
 	if (razmer==3)
 	{
@@ -450,13 +459,14 @@ int Choosestation_enter(int switcher)
 	}
 	else strf = new_enter;
 		
-	cout<<"razmer = "<<razmer<<endl;
-	cout<<"strf = "<<strf<<endl;
+	/*cout<<"razmer = "<<razmer<<endl;
+	cout<<"strf = "<<strf<<endl;*/
+	
 	for(int i=0; i<52;i++)
 	{
 		str = stations[i];
 		res = str.find(strf);
-		cout<<"str = "<<str<<" res = "<<res<<endl;
+		//cout<<"str = "<<str<<" res = "<<res<<endl;
 		if (res!=-1) {
 			strncpy(dyn_stations[counter], stations[i], strlen(stations[i]));
 			counter++;
@@ -464,21 +474,24 @@ int Choosestation_enter(int switcher)
 	}
 	
   	int k, j, lenth;
-    
+    /*cout<<"dyn after cpy: "<<endl;
     for(int i =0; i<20; i++)
     {
     	for(int j =0; j<strlen(dyn_stations[i]); j++)
     		cout<<dyn_stations[i][j];
     	cout<<endl;	
-	}
+	}*/
     	
 	
     
 	funk = Choosestation_enter_menu(1, counter, dyn_stations);
+	for (int i = 0; i < 30; i++)
+        delete [] dyn_stations[i];
+    delete [] enter;   
+	delete [] new_enter; 
+	
 	return funk;
 	
-    for (int count = 0; count < 30; count++)
-        delete [] dyn_stations[count];
 }
 
 
@@ -634,7 +647,7 @@ int Choose_startend(int switcher, int &source, int &target)
            target = Choosetype(1);
         if (switcher == 3)
         {
-        	cout<<" source = "<<source<<" target = "<<target<<endl;
+        	//cout<<" source = "<<source<<" target = "<<target<<endl;
         	ostanovochka = 4747;
 		}
 			
