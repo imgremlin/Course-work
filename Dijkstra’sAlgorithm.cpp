@@ -5,6 +5,7 @@
 #define UP 72
 #define DOWN 80
 #define SPACE 32
+#define BACKSPACE 8
 #include <iostream>
 #include <stdio.h>
 #include <conio.h>
@@ -47,18 +48,15 @@ int StartMenu(int switcher, int &source, int &target);
 
 int main()
 {
-	HWND hwnd;       
-    char Title[1024];
-    GetConsoleTitle(Title, 1024);
-    hwnd=FindWindow(NULL, Title);
-    MoveWindow(hwnd,0,0,540,720,TRUE);
+	system ("mode con cols=60 lines=30");
     
 	int dijkstra();
     int cost[N][N],i,j,w,ch,co;
     int x,y, amount;
+    
     for(i=1;i< N;i++)
-    for(j=1;j< N;j++)
-    cost[i][j] = INF;
+    	for(j=1;j< N;j++)
+    		cost[i][j] = INF;
     
     cost [1][2] = cost[2][1] = 3; //1 - akadem
 	cost [2][3] = cost[3][2] = 3;
@@ -119,6 +117,8 @@ int main()
 	
 	StartMenu(1, source, target);
     co = dijsktra(cost,source,target);
+//system("cls");
+
     printf("\nEstimated time: %d min",co);
     
 	return 0;
@@ -185,7 +185,7 @@ int dijsktra(int cost[][N],int source,int target)
 
 int Choosestation_red(int switcher)
 {
-  	int k, j, lenth;
+  	int k, j, lenth, choice;
     system("cls");
     cout<<endl<<endl;
     for (int i=0; i<18; i++)
@@ -203,7 +203,12 @@ int Choosestation_red(int switcher)
 		k = i;		
 	}
     
-    int choice = getch();
+     do
+    {
+    	choice = getch();
+
+	}while( choice!=ENTER && choice!=UP && choice!=DOWN);
+	
     if (choice == 224)
         choice = getch();
     if (choice == UP)
@@ -226,7 +231,7 @@ int Choosestation_red(int switcher)
 
 int Choosestation_green(int switcher)
 {
-  	int k, j, lenth;
+  	int k, j, lenth, choice;
     system("cls");
     cout<<endl<<endl;
     for (int i=18; i<18+16; i++)
@@ -244,7 +249,12 @@ int Choosestation_green(int switcher)
 		k = i;		
 	}
 	
-    int choice = getch();
+     do
+    {
+    	choice = getch();
+
+	}while( choice!=ENTER && choice!=UP && choice!=DOWN);
+	
     if (choice == 224)
         choice = getch();
     if (choice == UP)
@@ -265,7 +275,7 @@ int Choosestation_green(int switcher)
 
 int Choosestation_blue(int switcher)
 {
-  	int k, j, lenth;
+  	int k, j, lenth, choice;
     system("cls");
     cout<<endl<<endl;
     for (int i=18+16; i<18+16+18; i++)
@@ -283,7 +293,12 @@ int Choosestation_blue(int switcher)
 		k = i;		
 	}
 	
-    int choice = getch();
+     do
+    {
+    	choice = getch();
+
+	}while( choice!=ENTER && choice!=UP && choice!=DOWN);
+	
     if (choice == 224)
         choice = getch();
     if (choice == UP)
@@ -305,7 +320,7 @@ int Choosestation_blue(int switcher)
 int Chooseline(int switcher)
 {
 	char lines[3][15] = {"RED LINE", "GREEN LINE", "BLUE LINE"};
-    int k, j, l, lenth;
+    int k, j, l, lenth, choice;
     system("cls");
     
     cout<<endl<<endl;
@@ -323,7 +338,12 @@ int Chooseline(int switcher)
 				}
 	}
 	
-    int choice = getch();
+     do
+    {
+    	choice = getch();
+
+	}while( choice!=ENTER && choice!=UP && choice!=DOWN);
+	
     if (choice == 224)
         choice = getch();
     if (choice == UP)
@@ -356,8 +376,9 @@ int Chooseline(int switcher)
 int Choosestation_enter_menu(int switcher, int counter, char **dyn_stations )
 {
 	
-    int k, j, l, lenth;
+    int k, j, l, lenth, choice;
     system("cls");
+    
     /*for(int i =0; i<10;i++)
     {
     	for(j=0;j<strlen(dyn_stations[i]);j++)
@@ -380,7 +401,12 @@ int Choosestation_enter_menu(int switcher, int counter, char **dyn_stations )
 				}
 	}
 	
-    int choice = getch();
+     do
+    {
+    	choice = getch();
+
+	}while( choice!=ENTER && choice!=UP && choice!=DOWN);
+	
     if (choice == 224)
         choice = getch();
     if (choice == UP)
@@ -395,12 +421,12 @@ int Choosestation_enter_menu(int switcher, int counter, char **dyn_stations )
             Choosestation_enter_menu(1, counter, dyn_stations);
     if (choice == ESC)
 		Choosetype(1);	        
- 	if (choice == ENTER || choice == SPACE)
+ 	if (choice == ENTER)
     {
     	int cmp = 0; 
     	while(strncmp(dyn_stations[switcher-1], stations[cmp], strlen(stations[cmp]))!= 0)
 			cmp++;	
-		//cout<<"cmp = "<<cmp;	
+	//	cout<<"cmp = "<<cmp;	
 		
 		return cmp+1;		
 	}
@@ -412,10 +438,12 @@ int Choosestation_enter(int switcher)
 	string str;
 	int res;
 	char *enter = new char[20];
-	int i = 0;
+	int i = 0, choice;
 	char choize;
 	int razmer = 0;
 	
+	//system("cls");	
+    
 	char **dyn_stations = new char* [30];
 	for (int i = 0; i<30; i++)
 		dyn_stations[i] = new char [30];
@@ -426,21 +454,40 @@ int Choosestation_enter(int switcher)
 	int counter = 0;
 	string strf;
 	
-	cout<<"Enter name of stantion: ";
+	cout<<"Enter name of stantion (at least 2 letters): ";
 	
 	do{
 		choize = getch();
-		if (choize!=ENTER)
+		if (choize==BACKSPACE)
+		{
+			i=i-2;
+			razmer--;
+			system("cls");	
+			
+			cout<<"Enter name of stantion (at least 2 letters): ";
+			for(int j=0; j<i+1; j++)
+				cout<<enter[j];
+			
+		}
+		if (choize!=ENTER && choize!=BACKSPACE)
 		{
 			cout<<choize;
 			enter[i] = choize;
 			razmer++;
 			} 
 		i++;
+		if (choize==ENTER && razmer<2)
+			i--;
+		
 	  }
-    while(choize!=ENTER);
+    while(!( (choize==ENTER) && (razmer>1) ) );
     
-    enter[i] = '\0';
+    cout<<"ENTER = ";
+    for (int i=0; i<razmer; i++)
+		cout<<enter[i];
+	cout<<endl<<"razmer = "<<razmer;
+	
+    //enter[i] = '\0';
     char *new_enter = new char[razmer];
 	strncpy(new_enter, enter, razmer);
 	for(int i=0; i<razmer; i++)
@@ -448,19 +495,24 @@ int Choosestation_enter(int switcher)
 		
 	/*cout<<endl<<"new enter = ";	
 	for (int i=0; i<razmer; i++)
-		cout<<new_enter[i];	
-	cout<<endl;	*/
+		cout<<new_enter[i];	*/
+	cout<<endl;	
 	
-	if (razmer==3)
+	//strf = new_enter[0];
+	
+	for(int i =0; i<razmer; i++)
+		strf+=new_enter[i];
+	
+	/*if (razmer==3)
 	{
 		strf = new_enter[0];
 		strf+=new_enter[1];
 		strf+=new_enter[2];
 	}
-	else strf = new_enter;
+	else strf = new_enter;*/
 		
-	/*cout<<"razmer = "<<razmer<<endl;
-	cout<<"strf = "<<strf<<endl;*/
+//	cout<<"razmer = "<<razmer<<endl;
+//	cout<<"strf = "<<strf<<endl;
 	
 	for(int i=0; i<52;i++)
 	{
@@ -482,15 +534,24 @@ int Choosestation_enter(int switcher)
     	cout<<endl;	
 	}*/
     	
-	
+	if (counter==0)
+	{
+		//funk = Choosestation_enter_menu(1, counter, dyn_stations);
+		for (int i = 0; i < 30; i++)
+        	delete [] dyn_stations[i];
+    	delete [] enter;   
+		delete [] new_enter; 
+		Choosestation_enter(1);
+	}
+	else {
+			funk = Choosestation_enter_menu(1, counter, dyn_stations);
+			for (int i = 0; i < 30; i++)
+        		delete [] dyn_stations[i];
+    		delete [] enter;   
+			delete [] new_enter; 
+			return funk;
+		}
     
-	funk = Choosestation_enter_menu(1, counter, dyn_stations);
-	for (int i = 0; i < 30; i++)
-        delete [] dyn_stations[i];
-    delete [] enter;   
-	delete [] new_enter; 
-	
-	return funk;
 	
 }
 
@@ -499,7 +560,7 @@ int Choosestation_enter(int switcher)
 int Choosetype(int switcher)
 {
 	char type[2][15] = {"FIND BY NAME", "CHOOSE LINE"};
-    int k, j, l, lenth;
+    int k, j, l, lenth, choice;
     system("cls");
     
     cout<<endl<<endl;
@@ -517,7 +578,12 @@ int Choosetype(int switcher)
 				}
 	}
 	
-    int choice = getch();
+    do
+    {
+    	choice = getch();
+
+	}while( choice!=ENTER && choice!=UP && choice!=DOWN);
+	
     if (choice == 224)
         choice = getch();
     if (choice == UP)
@@ -549,7 +615,7 @@ int Choosetype(int switcher)
 int Choose_startend(int switcher, int &source, int &target)
 {
 	char type[3][15] = {"CHOOSE START", "CHOOSE END", "BUILD A ROUTE"};
-    int k, j,  lenth;
+    int k, j,  lenth, choice;
     do
 	{
 	system("cls");
@@ -623,7 +689,11 @@ int Choose_startend(int switcher, int &source, int &target)
 	    			
 				}
 	}
-    int choice = getch();
+    do
+    {
+    	choice = getch();
+
+	}while( choice!=ENTER && choice!=UP && choice!=DOWN);
     if (choice == 224)
         choice = getch();
     if (choice == UP)
@@ -647,7 +717,7 @@ int Choose_startend(int switcher, int &source, int &target)
            target = Choosetype(1);
         if (switcher == 3)
         {
-        	//cout<<" source = "<<source<<" target = "<<target<<endl;
+        //	cout<<" source = "<<source<<" target = "<<target<<endl;
         	ostanovochka = 4747;
 		}
 			
@@ -661,6 +731,7 @@ int StartMenu(int switcher, int &source, int &target)
 {
     char menus[4][15] = {"BUILD A ROUTE", "HELP", "INFO", "EXIT"};
     int k, j, l, lenth;
+    int choice;
     system("cls");
     
 	cout<<endl<<endl;
@@ -677,10 +748,16 @@ int StartMenu(int switcher, int &source, int &target)
     			cout<<menus[i]<<endl<<endl;
 				}		
 	}
-    
-    int choice = getch();
+	
+    do
+    {
+    	choice = getch();
+
+	}while( choice!=ENTER && choice!=UP && choice!=DOWN);
+	
     if (choice == 224)
-        choice = getch();
+    	choice = getch();
+    	
     if (choice == UP)
         if (switcher != 1)
             StartMenu(switcher - 1, source, target);
