@@ -16,12 +16,17 @@
 #include<windows.h>
 #define INF 99
 #define N 55
-
+#define RED 1
+#define WHITE 15
+#define BLACK 0
+#define CYAN 3
 using namespace std;
 
 int source = 13200, target = 13200;
 int ostanovochka = 47;
 int funk;
+int indent = 29;
+
 
 char stations[52][30] = {"AKADEMMISTECHKO", "ZHYTOMYRSKA", "SVIATOSHYN", "NYVKY", "BERESTEISKA", "SHULIAVSKA",
 							 "POLITEKHNICHNYI INSTYTUT", "VOKZALNA", "UNIVERSYTET", "TEATRALNA", "KHRESHCHATYK", "ARSENALNA", "DNIPRO", 
@@ -43,17 +48,24 @@ int Choosestation_enter(int switcher);
 int Choosetype(int switcher);
 int Choose_startend(int switcher, int &source, int &target);
 int StartMenu(int switcher, int &source, int &target);
+HANDLE hCons = GetStdHandle(STD_OUTPUT_HANDLE);
 
 
 
 int main()
 {
-	system ("mode con cols=60 lines=30");
-    
+	
+	system ("mode con cols=66 lines=20");
+    SetConsoleTitle("Dijkstra’s Algorithm");
+    system( "color F0" );
+    HANDLE hCons = GetStdHandle(STD_OUTPUT_HANDLE);
+    //HANDLE hCons = GetStdHandle(STD_OUTPUT_HANDLE);
+    //SetConsoleTextAttribute(hCons, 1);
+    //system("color 77");
 	int dijkstra();
     int cost[N][N],i,j,w,ch,co;
     int x,y, amount;
-    
+    int choice;
     for(i=1;i< N;i++)
     	for(j=1;j< N;j++)
     		cost[i][j] = INF;
@@ -116,11 +128,29 @@ int main()
 	cost [23][43] = cost[43][23] = 1; //lt - palats sportu  
 	
 	StartMenu(1, source, target);
+	SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | RED));
+	system("cls");
     co = dijsktra(cost,source,target);
-//system("cls");
-
+	
     printf("\nEstimated time: %d min",co);
+    SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | CYAN));
     
+    char main_help[2][35]={"Press ESC if u want to exit", "Press ENTER if u want to countinue"};
+    for (int i=0; i<13; i++) cout<<" "; cout<<endl<<"|"; for (int i=0; i<40; i++) cout<<"-"; cout<<"|"<<endl;
+	for (int i=0; i<13; i++) cout<<" "; cout<<"|"; for (int i=0; i<(40-strlen(main_help[0]))/2; i++) cout<<" "; 	for (int i=0; i<strlen(main_help[0]); i++) cout<<main_help[0][i]; for (int i=0; i<(40-strlen(main_help[0]))/2+1; i++) cout<<" "; cout<<"|"<<endl;
+	for (int i=0; i<13; i++) cout<<" "; cout<<"|"; 	for (int i=0; i<(40-strlen(main_help[1]))/2; i++) cout<<" "; for (int i=0; i<strlen(main_help[1]); i++) cout<<main_help[1][i]; for (int i=0; i<(40-strlen(main_help[1]))/2; i++) cout<<" "; cout<<"|"<<endl;
+    for (int i=0; i<13; i++) cout<<" "; cout<<"|"; for (int i=0; i<40; i++) cout<<"-"; cout<<"|"<<endl;
+    do
+    {
+    	choice = getch();
+    	if (choice==ESC) exit(0);
+    	if (choice==ENTER)
+		{
+			target = source = 13200;
+			StartMenu(1, source, target);
+		 } 
+	}while( choice!=ENTER && choice!=ESC);
+	SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | BLACK));
 	return 0;
 }
 
@@ -193,8 +223,10 @@ int Choosestation_red(int switcher)
     	lenth = 23 - strlen(stations[i])/2;
     	if (i==switcher-1)
 		{
+			SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | RED));
 			for(int j=0; j<lenth; j++) cout<<" ";
     		cout<<"<<  "<<stations[i]<<"!  >>"<<endl<<endl;
+    		SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | BLACK));
 		} 
     	else {
     			for(int j=0; j<lenth+4; j++) cout<<" ";
@@ -207,7 +239,7 @@ int Choosestation_red(int switcher)
     {
     	choice = getch();
 
-	}while( choice!=ENTER && choice!=UP && choice!=DOWN);
+	}while( choice!=ENTER && choice!=UP && choice!=DOWN && choice!=ESC);
 	
     if (choice == 224)
         choice = getch();
@@ -236,11 +268,13 @@ int Choosestation_green(int switcher)
     cout<<endl<<endl;
     for (int i=18; i<18+16; i++)
     {	
-    	lenth = 23 - strlen(stations[i])/2;
+    	lenth = indent - strlen(stations[i])/2;
     	if (i==switcher-1+18)
 		{
+			SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | RED));
 			for(int j = 0; j<lenth; j++) cout<<" ";
     		cout<<"<<  "<<stations[i]<<"!  >>"<<endl<<endl;
+    		SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | BLACK));
 		} 
     	else {
     			for(int j = 0; j<lenth+4; j++) cout<<" ";
@@ -253,7 +287,7 @@ int Choosestation_green(int switcher)
     {
     	choice = getch();
 
-	}while( choice!=ENTER && choice!=UP && choice!=DOWN);
+	}while( choice!=ENTER && choice!=UP && choice!=DOWN && choice!=ESC);
 	
     if (choice == 224)
         choice = getch();
@@ -280,11 +314,13 @@ int Choosestation_blue(int switcher)
     cout<<endl<<endl;
     for (int i=18+16; i<18+16+18; i++)
     {	
-    	lenth = 23 - strlen(stations[i])/2;
+    	lenth = indent - strlen(stations[i])/2;
     	if (i==switcher-1+18+16)
 		{
+			SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | RED));
 			for(int j=0; j<lenth; j++) cout<<" ";
     		cout<<"<<  "<<stations[i]<<"!  >>"<<endl<<endl;
+    		SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | BLACK));
 		} 
     	else {
     			for(int j=0; j<lenth+4; j++) cout<<" ";
@@ -297,7 +333,7 @@ int Choosestation_blue(int switcher)
     {
     	choice = getch();
 
-	}while( choice!=ENTER && choice!=UP && choice!=DOWN);
+	}while( choice!=ENTER && choice!=UP && choice!=DOWN && choice!=ESC);
 	
     if (choice == 224)
         choice = getch();
@@ -326,11 +362,13 @@ int Chooseline(int switcher)
     cout<<endl<<endl;
     for (int i=0; i<3; i++)
     {	
-    	lenth = 23 - strlen(lines[i])/2;
+    	lenth = indent - strlen(lines[i])/2;
     	if (i==switcher-1)
 		{
+			SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | RED));
 			for(int j=0; j<lenth; j++) cout<<" ";
     		cout<<"<<  "<<lines[i]<<"!  >>"<<endl<<endl;
+    		SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | BLACK));
 		} 
     	else {
     			for(int j=0; j<lenth+4; j++) cout<<" ";
@@ -342,7 +380,7 @@ int Chooseline(int switcher)
     {
     	choice = getch();
 
-	}while( choice!=ENTER && choice!=UP && choice!=DOWN);
+	}while( choice!=ENTER && choice!=UP && choice!=DOWN && choice!=ESC);
 	
     if (choice == 224)
         choice = getch();
@@ -358,7 +396,7 @@ int Chooseline(int switcher)
             Chooseline(1);
     if (choice == ESC)
 		Choosetype(1);	        
-    if (choice == ENTER || choice == SPACE)
+    if (choice == ENTER)
     {
         if (switcher == 1)
         	l = Choosestation_red(1);
@@ -389,11 +427,13 @@ int Choosestation_enter_menu(int switcher, int counter, char **dyn_stations )
     cout<<endl<<endl;
     for (int i=0; i<counter; i++)
     {	
-    	lenth = 23 - strlen(dyn_stations[i])/2;
+    	lenth = indent - strlen(dyn_stations[i])/2;
     	if (i==switcher-1)
 		{
+			SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | RED));
 			for(int j=0; j<lenth; j++) cout<<" ";
     		cout<<"<<  "<<dyn_stations[i]<<"!  >>"<<endl<<endl;
+    		SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | BLACK));
 		} 
     	else {
     			for(int j=0; j<lenth+4; j++) cout<<" ";
@@ -405,7 +445,7 @@ int Choosestation_enter_menu(int switcher, int counter, char **dyn_stations )
     {
     	choice = getch();
 
-	}while( choice!=ENTER && choice!=UP && choice!=DOWN);
+	}while( choice!=ENTER && choice!=UP && choice!=DOWN && choice!=ESC);
 	
     if (choice == 224)
         choice = getch();
@@ -442,7 +482,7 @@ int Choosestation_enter(int switcher)
 	char choize;
 	int razmer = 0;
 	
-	//system("cls");	
+	system("cls");	
     
 	char **dyn_stations = new char* [30];
 	for (int i = 0; i<30; i++)
@@ -458,34 +498,36 @@ int Choosestation_enter(int switcher)
 	
 	do{
 		choize = getch();
-		if (choize==BACKSPACE)
+		if (choize==BACKSPACE && razmer>0 && i>0)
 		{
 			i=i-2;
 			razmer--;
 			system("cls");	
-			
 			cout<<"Enter name of stantion (at least 2 letters): ";
 			for(int j=0; j<i+1; j++)
 				cout<<enter[j];
-			
+			i++;	
 		}
 		if (choize!=ENTER && choize!=BACKSPACE)
 		{
 			cout<<choize;
 			enter[i] = choize;
 			razmer++;
+			i++;
 			} 
-		i++;
-		if (choize==ENTER && razmer<2)
-			i--;
+		
+		//if (choize==ENTER && razmer<2)
+		//	i--;
 		
 	  }
     while(!( (choize==ENTER) && (razmer>1) ) );
     
-    cout<<"ENTER = ";
+	system("cls");	
+    
+    /*cout<<" ENTER = ";
     for (int i=0; i<razmer; i++)
 		cout<<enter[i];
-	cout<<endl<<"razmer = "<<razmer;
+	cout<<endl<<"razmer = "<<razmer;*/
 	
     //enter[i] = '\0';
     char *new_enter = new char[razmer];
@@ -493,9 +535,7 @@ int Choosestation_enter(int switcher)
 	for(int i=0; i<razmer; i++)
 		new_enter[i]=(char)toupper(new_enter[i]);
 		
-	/*cout<<endl<<"new enter = ";	
-	for (int i=0; i<razmer; i++)
-		cout<<new_enter[i];	*/
+	
 	cout<<endl;	
 	
 	//strf = new_enter[0];
@@ -533,7 +573,7 @@ int Choosestation_enter(int switcher)
     		cout<<dyn_stations[i][j];
     	cout<<endl;	
 	}*/
-    	
+    cout<<"counter = "<<counter;	
 	if (counter==0)
 	{
 		//funk = Choosestation_enter_menu(1, counter, dyn_stations);
@@ -545,11 +585,12 @@ int Choosestation_enter(int switcher)
 	}
 	else {
 			funk = Choosestation_enter_menu(1, counter, dyn_stations);
+			return funk;
 			for (int i = 0; i < 30; i++)
         		delete [] dyn_stations[i];
     		delete [] enter;   
 			delete [] new_enter; 
-			return funk;
+			
 		}
     
 	
@@ -566,11 +607,13 @@ int Choosetype(int switcher)
     cout<<endl<<endl;
     for (int i=0; i<2; i++)
     {	
-    	lenth = 23 - strlen(type[i])/2;
+    	lenth = indent - strlen(type[i])/2;
     	if (i==switcher-1)
 		{
+			SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | RED));
 			for(int j=0; j<lenth; j++) cout<<" ";
     		cout<<"<<  "<<type[i]<<"!  >>"<<endl<<endl;
+    		SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | BLACK));
 		} 
     	else {
     			for(int j=0; j<lenth+4; j++) cout<<" ";
@@ -582,7 +625,7 @@ int Choosetype(int switcher)
     {
     	choice = getch();
 
-	}while( choice!=ENTER && choice!=UP && choice!=DOWN);
+	}while( choice!=ENTER && choice!=UP && choice!=DOWN && choice!=ESC);
 	
     if (choice == 224)
         choice = getch();
@@ -622,9 +665,10 @@ int Choose_startend(int switcher, int &source, int &target)
     cout<<endl<<endl;
     for (int i=0; i<3; i++)
     {	
-    	lenth = 23 - strlen(type[i])/2;
+    	lenth = indent - strlen(type[i])/2;
     	if (i==switcher-1)
 		{
+			SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | RED));
 			if ((i==0)&&(source!=13200))
 			{
 				for(int j=0; j<lenth; j++) cout<<" ";
@@ -648,15 +692,16 @@ int Choose_startend(int switcher, int &source, int &target)
     			cout<<"<<  "<<type[i]<<"!  >>"<<" ( "<<"NONE"<<" ) "<<endl<<endl;
 			}
 			
-			
-			
 			if (i==2)
 			{
 				for(int j=0; j<lenth; j++) cout<<" ";
     			cout<<"<<  "<<type[i]<<"!  >>"<<endl<<endl;
 			}
 		} 
-    	else {
+    	else 
+			{
+				SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | BLACK));
+				
     			if ((i==0)&&(source!=13200))
 				{
 					for(int j=0; j<lenth+4; j++) cout<<" ";
@@ -693,7 +738,7 @@ int Choose_startend(int switcher, int &source, int &target)
     {
     	choice = getch();
 
-	}while( choice!=ENTER && choice!=UP && choice!=DOWN);
+	}while( choice!=ENTER && choice!=UP && choice!=DOWN && choice!=ESC);
     if (choice == 224)
         choice = getch();
     if (choice == UP)
@@ -709,13 +754,13 @@ int Choose_startend(int switcher, int &source, int &target)
             
     	if (choice == ESC)
 			StartMenu(1, source, target);	
-		if (choice == ENTER || choice == SPACE)
+		if (choice == ENTER)
     	{
-        if (switcher == 1)
+        if (switcher==1)
         	source = Choosetype(1);
-        if (switcher == 2)
+        if (switcher==2)
            target = Choosetype(1);
-        if (switcher == 3)
+        if (switcher==3 && target!=13200 && source!=13200)
         {
         //	cout<<" source = "<<source<<" target = "<<target<<endl;
         	ostanovochka = 4747;
@@ -727,33 +772,76 @@ int Choose_startend(int switcher, int &source, int &target)
 }
 
 
+
+int Help()
+{
+	int choice;
+	char help[4][45]={"Press ESC to come back to menu", "Project was made by Tsepa Oleksii from KA-81", "You should use ur brain and few buttoms", "HELP"};
+    system("cls");
+    SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | RED));
+    for (int i=0; i<33 - strlen(help[3])/2; i++) cout<<" "; for (int i=0; i<strlen(help[3]); i++) cout<<help[3][i]; cout<<endl<<endl;
+    SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | BLACK));
+    for (int i=0; i<33 - strlen(help[1])/2; i++) cout<<" ";for (int i=0; i<strlen(help[1]); i++) cout<<help[1][i]; cout<<endl;
+    for (int i=0; i<33 - strlen(help[2])/2; i++) cout<<" ";for (int i=0; i<strlen(help[2]); i++) cout<<help[2][i]; cout<<endl;
+    
+    SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | CYAN));
+    cout<<endl;
+    for (int i=0; i<13; i++) cout<<" ";cout<<"|"; for (int i=0; i<40; i++) cout<<"-"; cout<<"|"<<endl;
+	for (int i=0; i<13; i++) cout<<" ";cout<<"|"; 	for (int i=0; i<(40-strlen(help[0]))/2; i++) cout<<" "; for (int i=0; i<strlen(help[0]); i++) cout<<help[0][i]; for (int i=0; i<(40-strlen(help[0]))/2; i++) cout<<" "; cout<<"|"<<endl;
+    for (int i=0; i<13; i++) cout<<" ";cout<<"|"; for (int i=0; i<40; i++) cout<<"-"; cout<<"|"<<endl;
+    SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | BLACK));
+     do
+    {
+    	choice = getch();
+
+	}while(choice!=ESC);
+	
+    if (choice == 224)
+        choice = getch();
+    if (choice == ESC)
+		StartMenu(1, source, target);	
+        
+}
+
+
 int StartMenu(int switcher, int &source, int &target)
 {
-    char menus[4][15] = {"BUILD A ROUTE", "HELP", "INFO", "EXIT"};
+    char menus[3][15] = {"BUILD A ROUTE", "HELP", "EXIT"};
     int k, j, l, lenth;
     int choice;
     system("cls");
     
 	cout<<endl<<endl;
-    for (int i=0; i<4; i++)
+    for (int i=0; i<3; i++)
     {	
-    	lenth = 23 - strlen(menus[i])/2;
+    	lenth = indent - strlen(menus[i])/2;
     	if (i==switcher-1)
 		{
+			SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | RED));
 			for(int j=0; j<lenth; j++) cout<<" ";
     		cout<<"<<  "<<menus[i]<<"!  >>"<<endl<<endl;
+    		SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | BLACK));
+    		
 		} 
     	else {
+    	
     			for(int j=0; j<lenth+4; j++) cout<<" ";
     			cout<<menus[i]<<endl<<endl;
 				}		
 	}
-	
+	SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | CYAN));
+	char start_help[2][35]={"move - UP/DOWN ARROW", "select - ENTER"};
+	cout<<endl;
+    for (int i=0; i<13; i++) cout<<" "; cout<<"|"; for (int i=0; i<40; i++) cout<<"-"; cout<<"|"<<endl;
+	for (int i=0; i<13; i++) cout<<" "; cout<<"|"; for (int i=0; i<(40-strlen(start_help[0]))/2; i++) cout<<" "; 	for (int i=0; i<strlen(start_help[0]); i++) cout<<start_help[0][i]; for (int i=0; i<(40-strlen(start_help[0]))/2; i++) cout<<" "; cout<<"|"<<endl;
+	for (int i=0; i<13; i++) cout<<" "; cout<<"|"; 	for (int i=0; i<(40-strlen(start_help[1]))/2; i++) cout<<" "; for (int i=0; i<strlen(start_help[1]); i++) cout<<start_help[1][i]; for (int i=0; i<(40-strlen(start_help[1]))/2; i++) cout<<" "; cout<<"|"<<endl;
+    for (int i=0; i<13; i++) cout<<" "; cout<<"|"; for (int i=0; i<40; i++) cout<<"-"; cout<<"|"<<endl;
+    SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | BLACK));
     do
     {
     	choice = getch();
 
-	}while( choice!=ENTER && choice!=UP && choice!=DOWN);
+	}while( choice!=ENTER && choice!=UP && choice!=DOWN && choice!=ESC);
 	
     if (choice == 224)
     	choice = getch();
@@ -762,9 +850,9 @@ int StartMenu(int switcher, int &source, int &target)
         if (switcher != 1)
             StartMenu(switcher - 1, source, target);
         else
-            StartMenu(4, source, target);
+            StartMenu(3, source, target);
     if (choice == DOWN)
-        if (switcher != 4)
+        if (switcher != 3)
             StartMenu(switcher + 1,source, target);
         else
             StartMenu(1, source, target);
@@ -778,8 +866,10 @@ int StartMenu(int switcher, int &source, int &target)
         
   };
         if (switcher == 2)
+        	Help();
+        //if (switcher == 3)
+        //	About();
         if (switcher == 3)
-        if (switcher == 4)
             exit(0);  
     }
 }
