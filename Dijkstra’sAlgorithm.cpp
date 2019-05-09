@@ -56,7 +56,7 @@ int main()
 {
 	
 	system ("mode con cols=66 lines=20");
-    SetConsoleTitle("Dijkstra’s Algorithm");
+    SetConsoleTitle("Dijkstra Algorithm");
     system( "color F0" );
     HANDLE hCons = GetStdHandle(STD_OUTPUT_HANDLE);
     //HANDLE hCons = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -136,7 +136,8 @@ int main()
     SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | CYAN));
     
     char main_help[2][35]={"Press ESC if u want to exit", "Press ENTER if u want to countinue"};
-    for (int i=0; i<13; i++) cout<<" "; cout<<endl<<"|"; for (int i=0; i<40; i++) cout<<"-"; cout<<"|"<<endl;
+    cout<<endl;
+    for (int i=0; i<13; i++) cout<<" "; cout<<"|"; for (int i=0; i<40; i++) cout<<"-"; cout<<"|"<<endl;
 	for (int i=0; i<13; i++) cout<<" "; cout<<"|"; for (int i=0; i<(40-strlen(main_help[0]))/2; i++) cout<<" "; 	for (int i=0; i<strlen(main_help[0]); i++) cout<<main_help[0][i]; for (int i=0; i<(40-strlen(main_help[0]))/2+1; i++) cout<<" "; cout<<"|"<<endl;
 	for (int i=0; i<13; i++) cout<<" "; cout<<"|"; 	for (int i=0; i<(40-strlen(main_help[1]))/2; i++) cout<<" "; for (int i=0; i<strlen(main_help[1]); i++) cout<<main_help[1][i]; for (int i=0; i<(40-strlen(main_help[1]))/2; i++) cout<<" "; cout<<"|"<<endl;
     for (int i=0; i<13; i++) cout<<" "; cout<<"|"; for (int i=0; i<40; i++) cout<<"-"; cout<<"|"<<endl;
@@ -215,6 +216,7 @@ int dijsktra(int cost[][N],int source,int target)
 
 int Choosestation_red(int switcher)
 {
+	system ("mode con cols=66 lines=40");
   	int k, j, lenth, choice;
     system("cls");
     cout<<endl<<endl;
@@ -263,6 +265,7 @@ int Choosestation_red(int switcher)
 
 int Choosestation_green(int switcher)
 {
+	system ("mode con cols=66 lines=40");
   	int k, j, lenth, choice;
     system("cls");
     cout<<endl<<endl;
@@ -309,6 +312,7 @@ int Choosestation_green(int switcher)
 
 int Choosestation_blue(int switcher)
 {
+	system ("mode con cols=66 lines=40");
   	int k, j, lenth, choice;
     system("cls");
     cout<<endl<<endl;
@@ -355,6 +359,7 @@ int Choosestation_blue(int switcher)
 
 int Chooseline(int switcher)
 {
+	system ("mode con cols=66 lines=20");
 	char lines[3][15] = {"RED LINE", "GREEN LINE", "BLUE LINE"};
     int k, j, l, lenth, choice;
     system("cls");
@@ -413,7 +418,7 @@ int Chooseline(int switcher)
 
 int Choosestation_enter_menu(int switcher, int counter, char **dyn_stations )
 {
-	
+	system ("mode con cols=66 lines=20");
     int k, j, l, lenth, choice;
     system("cls");
     
@@ -475,6 +480,7 @@ int Choosestation_enter_menu(int switcher, int counter, char **dyn_stations )
 
 int Choosestation_enter(int switcher)
 {
+	system ("mode con cols=66 lines=20");
 	string str;
 	int res;
 	char *enter = new char[20];
@@ -600,6 +606,7 @@ int Choosestation_enter(int switcher)
 
 int Choosetype(int switcher)
 {
+	system ("mode con cols=66 lines=20");
 	char type[2][15] = {"FIND BY NAME", "CHOOSE LINE"};
     int k, j, l, lenth, choice;
     system("cls");
@@ -657,6 +664,7 @@ int Choosetype(int switcher)
 
 int Choose_startend(int switcher, int &source, int &target)
 {
+	system ("mode con cols=66 lines=20");
 	char type[3][15] = {"CHOOSE START", "CHOOSE END", "BUILD A ROUTE"};
     int k, j,  lenth, choice;
     do
@@ -775,6 +783,7 @@ int Choose_startend(int switcher, int &source, int &target)
 
 int Help()
 {
+	system ("mode con cols=66 lines=20");
 	int choice;
 	char help[4][45]={"Press ESC to come back to menu", "Project was made by Tsepa Oleksii from KA-81", "You should use ur brain and few buttoms", "HELP"};
     system("cls");
@@ -806,6 +815,7 @@ int Help()
 
 int StartMenu(int switcher, int &source, int &target)
 {
+	system ("mode con cols=66 lines=20");
     char menus[3][15] = {"BUILD A ROUTE", "HELP", "EXIT"};
     int k, j, l, lenth;
     int choice;
