@@ -34,7 +34,7 @@ char stations[52][30] = {"AKADEMMISTECHKO", "ZHYTOMYRSKA", "SVIATOSHYN", "NYVKY"
 							 "ZOLOTI VOROTA", "PALATS SPORTU", "KLOVSKA", "PECHERSKA", "DRUZHBY NARODIV", "VYDUBYCHI", "SLAVUTYCH", 
 							 "OSOKORKY", "POZNIAKY", "KHARKIVSKA", "VYRLYTSIA", "BORYSPILSKA", "CHERVONY KHUTIR","HEROIV DNIPRA", 
 							 "MINSKA", "OBOLON", "POCHAINA", "TARASA SHEVCHENKA", "KONTRAKTOVA PLOSHCHA", "POSHTOVA PLOSHCHA", 
-							 "MAIDAN NEZALEZHNOSTI", "PLOSHCHA LVA TOLSTOHO", "OLIMPIISKA", "PALATS UKRAYINA", "LYBIDSKAV", "DEMIIVSKA", 
+							 "MAIDAN NEZALEZHNOSTI", "PLOSHCHA LVA TOLSTOHO", "OLIMPIISKA", "PALATS UKRAYINA", "LYBIDSKA", "DEMIIVSKA", 
 							 "HOLOSIIVSKA", "VASYLKIVSKA", "VYSTAVKOVYI TSENTR", "IPODROM", "TEREMKY"};
 							 
 							 
@@ -59,9 +59,6 @@ int main()
     SetConsoleTitle("Dijkstra Algorithm");
     system( "color F0" );
     HANDLE hCons = GetStdHandle(STD_OUTPUT_HANDLE);
-    //HANDLE hCons = GetStdHandle(STD_OUTPUT_HANDLE);
-    //SetConsoleTextAttribute(hCons, 1);
-    //system("color 77");
 	int dijkstra();
     int cost[N][N],i,j,w,ch,co;
     int x,y, amount;
@@ -131,8 +128,7 @@ int main()
 	SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | RED));
 	system("cls");
     co = dijsktra(cost,source,target);
-	
-    printf("\nEstimated time: %d min",co);
+	cout<<"Estimated time: "<<co<<" min";
     SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | CYAN));
     
     char main_help[2][35]={"Press ESC if u want to exit", "Press ENTER if u want to countinue"};
@@ -222,7 +218,7 @@ int Choosestation_red(int switcher)
     cout<<endl<<endl;
     for (int i=0; i<18; i++)
     {	
-    	lenth = 23 - strlen(stations[i])/2;
+    	lenth = indent - strlen(stations[i])/2;
     	if (i==switcher-1)
 		{
 			SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | RED));
@@ -265,7 +261,7 @@ int Choosestation_red(int switcher)
 
 int Choosestation_green(int switcher)
 {
-	system ("mode con cols=66 lines=40");
+	system ("mode con cols=66 lines=36");
   	int k, j, lenth, choice;
     system("cls");
     cout<<endl<<endl;
@@ -336,7 +332,6 @@ int Choosestation_blue(int switcher)
      do
     {
     	choice = getch();
-
 	}while( choice!=ENTER && choice!=UP && choice!=DOWN && choice!=ESC);
 	
     if (choice == 224)
@@ -384,7 +379,6 @@ int Chooseline(int switcher)
      do
     {
     	choice = getch();
-
 	}while( choice!=ENTER && choice!=UP && choice!=DOWN && choice!=ESC);
 	
     if (choice == 224)
@@ -421,13 +415,6 @@ int Choosestation_enter_menu(int switcher, int counter, char **dyn_stations )
 	system ("mode con cols=66 lines=20");
     int k, j, l, lenth, choice;
     system("cls");
-    
-    /*for(int i =0; i<10;i++)
-    {
-    	for(j=0;j<strlen(dyn_stations[i]);j++)
-    		cout<<dyn_stations[i][j];
-    	cout<<endl;	
-	}*/
     	
     cout<<endl<<endl;
     for (int i=0; i<counter; i++)
@@ -470,9 +457,7 @@ int Choosestation_enter_menu(int switcher, int counter, char **dyn_stations )
     {
     	int cmp = 0; 
     	while(strncmp(dyn_stations[switcher-1], stations[cmp], strlen(stations[cmp]))!= 0)
-			cmp++;	
-	//	cout<<"cmp = "<<cmp;	
-		
+			cmp++;		
 		return cmp+1;		
 	}
 }
@@ -480,25 +465,26 @@ int Choosestation_enter_menu(int switcher, int counter, char **dyn_stations )
 
 int Choosestation_enter(int switcher)
 {
-	system ("mode con cols=66 lines=20");
-	string str;
-	int res;
-	char *enter = new char[20];
-	int i = 0, choice;
-	char choize;
-	int razmer = 0;
-	
 	system("cls");	
-    
-	char **dyn_stations = new char* [30];
-	for (int i = 0; i<30; i++)
-		dyn_stations[i] = new char [30];
-	for(int i =0; i<30;i++)
-		for(int j=0; j<30;j++)
-			dyn_stations[i][j] = '\0';
-	
-	int counter = 0;
-	string strf;
+    while(1)
+    {
+    	system ("mode con cols=66 lines=20");
+    	
+	    int counter = 0;
+		string str;
+		int res;
+		int i = 0, choice;
+		char choize;
+		int razmer = 0;
+		
+	    char *enter = new char[20];
+		char **dyn_stations = new char* [30];
+		for (int i = 0; i<30; i++)
+			dyn_stations[i] = new char [30];
+		for(int i =0; i<30;i++)
+			for(int j=0; j<30;j++)
+				dyn_stations[i][j] = '\0';
+		string strf;
 	
 	cout<<"Enter name of stantion (at least 2 letters): ";
 	
@@ -521,50 +507,25 @@ int Choosestation_enter(int switcher)
 			razmer++;
 			i++;
 			} 
-		
-		//if (choize==ENTER && razmer<2)
-		//	i--;
-		
 	  }
     while(!( (choize==ENTER) && (razmer>1) ) );
     
 	system("cls");	
-    
-    /*cout<<" ENTER = ";
-    for (int i=0; i<razmer; i++)
-		cout<<enter[i];
-	cout<<endl<<"razmer = "<<razmer;*/
 	
-    //enter[i] = '\0';
     char *new_enter = new char[razmer];
 	strncpy(new_enter, enter, razmer);
 	for(int i=0; i<razmer; i++)
 		new_enter[i]=(char)toupper(new_enter[i]);
 		
-	
 	cout<<endl;	
-	
-	//strf = new_enter[0];
 	
 	for(int i =0; i<razmer; i++)
 		strf+=new_enter[i];
-	
-	/*if (razmer==3)
-	{
-		strf = new_enter[0];
-		strf+=new_enter[1];
-		strf+=new_enter[2];
-	}
-	else strf = new_enter;*/
-		
-//	cout<<"razmer = "<<razmer<<endl;
-//	cout<<"strf = "<<strf<<endl;
 	
 	for(int i=0; i<52;i++)
 	{
 		str = stations[i];
 		res = str.find(strf);
-		//cout<<"str = "<<str<<" res = "<<res<<endl;
 		if (res!=-1) {
 			strncpy(dyn_stations[counter], stations[i], strlen(stations[i]));
 			counter++;
@@ -572,22 +533,13 @@ int Choosestation_enter(int switcher)
 	}
 	
   	int k, j, lenth;
-    /*cout<<"dyn after cpy: "<<endl;
-    for(int i =0; i<20; i++)
-    {
-    	for(int j =0; j<strlen(dyn_stations[i]); j++)
-    		cout<<dyn_stations[i][j];
-    	cout<<endl;	
-	}*/
-    cout<<"counter = "<<counter;	
+  	
 	if (counter==0)
 	{
-		//funk = Choosestation_enter_menu(1, counter, dyn_stations);
 		for (int i = 0; i < 30; i++)
         	delete [] dyn_stations[i];
     	delete [] enter;   
 		delete [] new_enter; 
-		Choosestation_enter(1);
 	}
 	else {
 			funk = Choosestation_enter_menu(1, counter, dyn_stations);
@@ -596,10 +548,10 @@ int Choosestation_enter(int switcher)
         		delete [] dyn_stations[i];
     		delete [] enter;   
 			delete [] new_enter; 
+			break;
 			
 		}
-    
-	
+			}
 }
 
 
@@ -608,7 +560,7 @@ int Choosetype(int switcher)
 {
 	system ("mode con cols=66 lines=20");
 	char type[2][15] = {"FIND BY NAME", "CHOOSE LINE"};
-    int k, j, l, lenth, choice;
+    int k, j, lenth, choice, l=13200;
     system("cls");
     
     cout<<endl<<endl;
@@ -673,7 +625,7 @@ int Choose_startend(int switcher, int &source, int &target)
     cout<<endl<<endl;
     for (int i=0; i<3; i++)
     {	
-    	lenth = indent - strlen(type[i])/2;
+    	lenth = indent - 15;
     	if (i==switcher-1)
 		{
 			SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | RED));
@@ -769,11 +721,8 @@ int Choose_startend(int switcher, int &source, int &target)
         if (switcher==2)
            target = Choosetype(1);
         if (switcher==3 && target!=13200 && source!=13200)
-        {
-        //	cout<<" source = "<<source<<" target = "<<target<<endl;
         	ostanovochka = 4747;
-		}
-			
+        	
 		}
 	} while(ostanovochka!=4747); 
 
@@ -869,10 +818,7 @@ int StartMenu(int switcher, int &source, int &target)
     if (choice == ENTER || choice == SPACE)
     {
         if (switcher == 1){
-        	//cout<<"Choose the source line and station: ";
         	Choose_startend(1, source, target);
-        	//cout<<"Choose the source line and station: ";
-        	//target = Choose_startend(1);
         
   };
         if (switcher == 2)
