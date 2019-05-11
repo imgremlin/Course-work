@@ -1,10 +1,7 @@
 #define ESC 27
 #define ENTER 13
-#define LEFT 75
-#define RIGHT 77
 #define UP 72
 #define DOWN 80
-#define SPACE 32
 #define BACKSPACE 8
 #include <iostream>
 #include <stdio.h>
@@ -49,7 +46,7 @@ int Choosetype(int switcher);
 int Choose_startend(int switcher, int &source, int &target);
 int StartMenu(int switcher, int &source, int &target);
 HANDLE hCons = GetStdHandle(STD_OUTPUT_HANDLE);
-
+int ask_main();
 
 
 int main()
@@ -128,51 +125,68 @@ int main()
 	SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | RED));
 	system("cls");
     co = dijsktra(cost,source,target);
+    cout<<endl;
+    for(int t=0; t<14; t++) cout<<" ";
 	cout<<"Estimated time: "<<co<<" min";
     SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | CYAN));
     
-    char main_help[2][35]={"Press ESC if u want to exit", "Press ENTER if u want to countinue"};
-    cout<<endl;
-    for (int i=0; i<13; i++) cout<<" "; cout<<"|"; for (int i=0; i<40; i++) cout<<"-"; cout<<"|"<<endl;
-	for (int i=0; i<13; i++) cout<<" "; cout<<"|"; for (int i=0; i<(40-strlen(main_help[0]))/2; i++) cout<<" "; 	for (int i=0; i<strlen(main_help[0]); i++) cout<<main_help[0][i]; for (int i=0; i<(40-strlen(main_help[0]))/2+1; i++) cout<<" "; cout<<"|"<<endl;
-	for (int i=0; i<13; i++) cout<<" "; cout<<"|"; 	for (int i=0; i<(40-strlen(main_help[1]))/2; i++) cout<<" "; for (int i=0; i<strlen(main_help[1]); i++) cout<<main_help[1][i]; for (int i=0; i<(40-strlen(main_help[1]))/2; i++) cout<<" "; cout<<"|"<<endl;
-    for (int i=0; i<13; i++) cout<<" "; cout<<"|"; for (int i=0; i<40; i++) cout<<"-"; cout<<"|"<<endl;
-    do
+    while(1)
     {
-    	choice = getch();
-    	if (choice==ESC) exit(0);
-    	if (choice==ENTER)
-		{
-			target = source = 13200;
-			StartMenu(1, source, target);
-		 } 
-	}while( choice!=ENTER && choice!=ESC);
+    	ask_main();
+		do
+	    {
+	    	choice = getch();
+	    	if (choice==ESC) exit(0);
+	    	if (choice==ENTER)
+			{
+				target = source = 13200;
+				ostanovochka = 47;
+				StartMenu(1, source, target);
+				system("cls");
+				co = dijsktra(cost,source,target);
+				cout<<endl;
+				for(int t=0; t<14; t++) cout<<" ";
+				cout<<"Estimated time: "<<co<<" min";
+			 } 
+		}while( choice!=ENTER && choice!=ESC);
+	}
+	
 	SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | BLACK));
+	
 	return 0;
 }
 
 
-
 int dijsktra(int cost[][N],int source,int target)
 {
-    int dist[N],prev[N],selected[N]={0},i,m,min,start,d,j;
-    char path[N][N];
+	int selected[N]={0};
+	int i,m,min,start,d,j;
+    
+    int *dist = new int[N];
+    int *prev = new int[N];
+		char **path = new char* [N];
+		for (int i = 0; i<N; i++)
+			path[i] = new char [N];				
+				
+				
     for(i=1;i< N;i++)
     {
         dist[i] = INF;
         prev[i] = -1;
     }
+    
     start = source;
     selected[start]=1;
     dist[start] = 0;
+    
     while(selected[target] == 0)
     {
         min = INF;
         m = 0;
         for(i=1;i< N;i++)
         {
-            d = dist[start] +cost[start][i];
-            if(d< dist[i]&&selected[i]==0)
+            d = dist[start] + cost[start][i];
+            if(d < dist[i] && selected[i]==0)
             {
                 dist[i] = d;
                 prev[i] = start;
@@ -190,23 +204,50 @@ int dijsktra(int cost[][N],int source,int target)
     j = 0;
     while(start != -1)
     {
-        strncpy(path[j++], stations[start-1], 25);
+        strncpy(path[j++], stations[start-1], 24);
         start = prev[start];
     }
+    //cout<<stations[6][0]<<stations[6][1];
+    
     int amount = j;
+    if (target==7 || source==7) 
+	{
+		cout<<"kek";
+		amount = j-1;
+	
+	}
+	if (source==18) 
+	{
+		cout<<"kek";
+		amount = j-1;
+	
+	}
+	if (source==18) 
+	{
+		cout<<"kek";
+		amount = j-1;
+	
+	}
+    else amount = j;
     for (i = amount; i >= 0; i--)
 	{
 		if (strlen(path[i]) != 0)
-		{	
-			
-			for(j=0; j<strlen(path[i]); j++)
-			{
-				printf("%c", path[i][j]);
-			}
-			printf("\n");
+		{
+			for(int t=0; t<14; t++) cout<<" ";
+				
+			for(int k=0; k<strlen(path[i]); k++)
+				cout<<path[i][k];
+			cout<<endl;
 		}
 	}
+    		cout<<"target = "<<target<<" source = "<<source;
     return dist[target];
+    
+    for (int i = 0; i < N; i++)
+        		delete [] path[i];
+    		delete [] dist;   
+			delete [] prev; 
+			selected[N]={0};
 }
 
 
@@ -253,7 +294,7 @@ int Choosestation_red(int switcher)
             Choosestation_red(1);
 	if (choice == ESC)
 		Chooseline(1);	
-    if (choice == ENTER || choice == SPACE)
+    if (choice == ENTER)
       	return switcher;
       	
 }
@@ -302,7 +343,7 @@ int Choosestation_green(int switcher)
             Choosestation_green(1);
     if (choice == ESC)
 		Chooseline(1);	        
-    if (choice == ENTER || choice == SPACE)
+    if (choice == ENTER)
     	return switcher+18;
     }
 
@@ -348,7 +389,7 @@ int Choosestation_blue(int switcher)
             Choosestation_blue(1);
     if (choice == ESC)
 		Chooseline(1);	        
-    if (choice == ENTER || choice == SPACE)
+    if (choice == ENTER)
     	return switcher+18+16;
 }
 
@@ -477,7 +518,7 @@ int Choosestation_enter(int switcher)
 		char choize;
 		int razmer = 0;
 		
-	    char *enter = new char[20];
+	    char *enter = new char[25];
 		char **dyn_stations = new char* [30];
 		for (int i = 0; i<30; i++)
 			dyn_stations[i] = new char [30];
@@ -486,7 +527,7 @@ int Choosestation_enter(int switcher)
 				dyn_stations[i][j] = '\0';
 		string strf;
 	
-	cout<<"Enter name of stantion (at least 2 letters): ";
+	cout<<endl<<endl<<endl<<"Enter name of stantion (at least 2 letters): ";
 	
 	do{
 		choize = getch();
@@ -495,12 +536,12 @@ int Choosestation_enter(int switcher)
 			i=i-2;
 			razmer--;
 			system("cls");	
-			cout<<"Enter name of stantion (at least 2 letters): ";
+			cout<<endl<<endl<<endl<<"Enter name of stantion (at least 2 letters): ";
 			for(int j=0; j<i+1; j++)
 				cout<<enter[j];
 			i++;	
 		}
-		if (choize!=ENTER && choize!=BACKSPACE)
+		if (choize!=ENTER && choize!=BACKSPACE && razmer<20)
 		{
 			cout<<choize;
 			enter[i] = choize;
@@ -549,7 +590,6 @@ int Choosestation_enter(int switcher)
     		delete [] enter;   
 			delete [] new_enter; 
 			break;
-			
 		}
 			}
 }
@@ -600,7 +640,7 @@ int Choosetype(int switcher)
             Choosetype(1);
     if (choice == ESC)
 		Choose_startend(1, source, target);	        
-    if (choice == ENTER || choice == SPACE)
+    if (choice == ENTER)
     {
         if (switcher == 1)
        		l = Choosestation_enter(1);
@@ -760,7 +800,17 @@ int Help()
 		StartMenu(1, source, target);	
         
 }
-
+int ask_main()
+{
+	char main_help[2][35]={"Press ESC if u want to exit", "Press ENTER if u want to countinue"};
+    cout<<endl;
+    SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | CYAN));
+    for (int i=0; i<13; i++) cout<<" "; cout<<"|"; for (int i=0; i<40; i++) cout<<"-"; cout<<"|"<<endl;
+	for (int i=0; i<13; i++) cout<<" "; cout<<"|"; for (int i=0; i<(40-strlen(main_help[0]))/2; i++) cout<<" "; 	for (int i=0; i<strlen(main_help[0]); i++) cout<<main_help[0][i]; for (int i=0; i<(40-strlen(main_help[0]))/2+1; i++) cout<<" "; cout<<"|"<<endl;
+	for (int i=0; i<13; i++) cout<<" "; cout<<"|"; 	for (int i=0; i<(40-strlen(main_help[1]))/2; i++) cout<<" "; for (int i=0; i<strlen(main_help[1]); i++) cout<<main_help[1][i]; for (int i=0; i<(40-strlen(main_help[1]))/2; i++) cout<<" "; cout<<"|"<<endl;
+    for (int i=0; i<13; i++) cout<<" "; cout<<"|"; for (int i=0; i<40; i++) cout<<"-"; cout<<"|"<<endl;
+    SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | BLACK));
+}
 
 int StartMenu(int switcher, int &source, int &target)
 {
@@ -815,7 +865,7 @@ int StartMenu(int switcher, int &source, int &target)
             StartMenu(switcher + 1,source, target);
         else
             StartMenu(1, source, target);
-    if (choice == ENTER || choice == SPACE)
+    if (choice == ENTER)
     {
         if (switcher == 1){
         	Choose_startend(1, source, target);
