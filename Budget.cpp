@@ -30,7 +30,7 @@ int indent = 29;
 
 class Trans{  
 
-	public:  
+	private:
 		string title;
 	  	string category;
 	  	int period;  
@@ -41,8 +41,19 @@ class Trans{
 		bool income;
 		int term;
 		
+	public:  
+		string get_title() const{return title;}
+		string get_category() const{return category;}
+		int get_period() const{return period;}
+		int get_day() const{return day;}
+		int get_month() const{return month;}
+		int get_year() const{return year;}
+		int get_sum() const{return sum;}
+		int get_income() const{return income;}
+		int get_term() const{return term;}
 	 	
-	Trans(){   
+	Trans()
+	{   
 		title = "none";
 	    category = "other";
 	  	period = 0;  
@@ -54,7 +65,8 @@ class Trans{
 		term = 0;
 	}
 		  
-	Trans(string title1, string category1, int period1, int day1, int month1, int year1, int sum1, bool income1, int term1){  
+	Trans(string title1, string category1, int period1, int day1, int month1, int year1, int sum1, bool income1, int term1)
+	{  
 		title = title1;
 	    category = category1;
 	  	period = period1;  
@@ -64,7 +76,6 @@ class Trans{
 		sum = sum1; 
 		income = income1;
 		term = term1;
-	
 	}
 	  
 	Trans(const Trans &b){    
@@ -77,33 +88,65 @@ class Trans{
 		sum = b.sum; 
 		income = b.income;
 		term = b.term;  
-	
 	}
 	    
 	~Trans(){}
 		
 	void print()
 	{
-		
+		int length;
 			cout<<"   ";
-			cout<<title; 						for (int i=0; i<(15-title.size()); i++) cout<<" ";
-			cout<<category; 					for (int i=0; i<(15-category.size()); i++) cout<<" ";
-			cout<<term; 						int length = 1; while (term /= 10 ) length++;	for (int i=0; i<(10-length); i++) cout<<" ";
-			cout<<day<<"."<<month<<"."<<year; 	length = 1; while (day /= 10 ) length++; while (month /= 10 ) length++;	for (int i=0; i<(10-length-3); i++) cout<<" ";
-			cout<<sum; 							length = 1; while (sum /= 10 ) length++;	for (int i=0; i<(10-length); i++) cout<<" ";
-			cout<<income;		
+			cout<<get_title(); 											for (int i=0; i<(15-get_title().size()); i++) cout<<" ";
+			cout<<get_category(); 										for (int i=0; i<(15-get_category().size()); i++) cout<<" ";				
+			cout<<get_term()<<" "; 										length = get_term(); while ((length /= 10) > 0) length++;	for (int i=0; i<(8-length); i++) cout<<" ";					
+			cout<<get_day()<<"."<<get_month()<<"."<<get_year()<<" ";	length = 0; if(get_day() > 9) length++;	if(get_month() > 9) length++; for (int i=0; i<(5-length); i++) cout<<" ";	
+			cout<<get_sum()<<" "; 										length = get_sum(); while( ( length /= 10) > 0 ) length++;	if (get_sum()<10) length=length-2; for (int i=0; i<(6-length); i++) cout<<" ";
+			cout<<get_income();		
 			
 	}
-
+	
 };
 
 vector<Trans> g1;
-
+struct EntityComp 
+	{
+	  int property;
+	  EntityComp(int property) {this->property = property;}
+	  bool operator()(const Trans& s1, const Trans& s2) const
+	  	{
+		    if(property == 1)
+		      	return s1.get_title()<s2.get_title();
+		      	
+	    	if(property == 2)
+		      	return s1.get_category()<s2.get_category();
+		      	
+			if(property == 3)
+		      	return s1.get_term()<s2.get_term();
+		      	
+		    if(property == 4)
+		    {
+		    	if (s1.get_year()!=s2.get_year())
+		    		return s1.get_year()<s2.get_year();
+		    	else {
+						if (s1.get_month()!=s2.get_month())
+		    				return s1.get_month()<s2.get_month();
+		    			else return s1.get_day()<s2.get_day();		
+		    			}
+			}
+		      	  	
+		    if(property == 5)
+		      	return s1.get_sum()<s2.get_sum();
+		      	
+		    if(property == 6)
+		      	return s1.get_income()<s2.get_income();
+		    
+  		}
+	};
 
 int StartMenu(int switcher);
 int Adm_mode();
 HANDLE hCons = GetStdHandle(STD_OUTPUT_HANDLE);
-			
+		
 int main() 
 { 
 	system ("mode con cols=100 lines=20");
@@ -112,10 +155,12 @@ int main()
     HANDLE hCons = GetStdHandle(STD_OUTPUT_HANDLE);
     
 	Trans aa;
-	Trans a1( "title", "deposit", 1,2,10,2019, 220, true, 0); 		
+	Trans a1( "title", "deposit", 1,12,10,2019, 220, true, 0); 	
+	Trans a2( "name", "credit", 3,2,10,2016, 219, false, 1);	
 	g1.push_back(aa);
 	g1.push_back(a1);
-	
+	g1.push_back(a2);
+
 	StartMenu(1);
 	return 0; 
 }
@@ -128,12 +173,13 @@ vector<Trans> Add(vector<Trans>& g1)
 	int dy,mth,yr, am, trm, rt, prd;
 	int prb, des;
 	string ttl, cat;
-
+	char addd[1][20]={"ADD TRANSACTION"};
 	while(1)
 	{	
 		rt = 0;
 		trm = 0;
-			
+		
+		 for (int i=0; i<33 - strlen(addd[0])/2; i++) cout<<" "; for (int i=0; i<strlen(addd[0]); i++) cout<<addd[0][i]; cout<<endl<<endl;	
 		
 		do{		
 			cout<<"Input title of transaction: ";
@@ -210,12 +256,12 @@ vector<Trans> Add(vector<Trans>& g1)
 		    cin>>yr;
 		    if(!cin) 
 		    {
-		       cout<<"Year: ";
+		       cout<<"Year(between 1900 & 2019): ";
 		       cin.clear();
 		       while (cin.get() != '\n');
 		    }
 		    
-		 }while((yr>2019)|| (yr<2000));
+		 }while((yr>2019)|| (yr<1900));
 		 
 		g1.push_back(Trans(ttl, cat, prd, dy, mth, yr, am ,prb, trm));
 		
@@ -244,43 +290,113 @@ vector<Trans> Add(vector<Trans>& g1)
 }
 
 vector<Trans> Show(vector<Trans>& g1)
-{
-	char help[14][80]={"Press ESC to come back to menu", "HELP", "Buttons to use: ", "ESC - to back to previous menu", "UP/DOWN ARROW - to move", "ENTER - to select",
-						"You can enter a full or incomplete name of station", "You can select a station by: ", "entering its name", "selecting the line", "List of transactions" };
-	system ("mode con cols=100 lines=20");
-	int choice;
-	for (int i=0; i<29; i++) cout<<" "; for (int i=0; i<strlen(help[10]); i++) cout<<help[10][i]; cout<<endl<<endl;
-	cout<<"N"; for (int i=0; i<5; i++) cout<<" ";
-	cout<<"Title"; for (int i=0; i<15-5; i++) cout<<" ";
-	cout<<"Category"; for (int i=0; i<15-8; i++) cout<<" ";
-	cout<<"Period"; for (int i=0; i<10-6; i++) cout<<" ";
-	cout<<"Date"; for (int i=0; i<10; i++) cout<<" ";
-	cout<<"Sum"; for (int i=0; i<10-3; i++) cout<<" ";
-	cout<<"Income"; 
-	cout<<endl;
-	for(int i = 0; i < g1.size(); i++)
-		{
-			cout<<i+1<<". ";
-	    	g1[i].print();
-	    	cout<<endl;
-			}
+{	
 
-    SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | CYAN));
-    cout<<endl;
-    for (int i=0; i<13; i++) cout<<" ";cout<<"|"; for (int i=0; i<40; i++) cout<<"-"; cout<<"|"<<endl;
-	for (int i=0; i<13; i++) cout<<" ";cout<<"|"; 	for (int i=0; i<(40-strlen(help[0]))/2; i++) cout<<" "; for (int i=0; i<strlen(help[0]); i++) cout<<help[0][i]; for (int i=0; i<(40-strlen(help[0]))/2; i++) cout<<" "; cout<<"|"<<endl;
-    for (int i=0; i<13; i++) cout<<" ";cout<<"|"; for (int i=0; i<40; i++) cout<<"-"; cout<<"|"<<endl;
-    
-     do
-    {
-    	choice = getch();
-
-	}while(choice!=ESC);
 	
-    if (choice == 224)
-        choice = getch();
-    if (choice == ESC)
-		StartMenu(1);	    
+	while(1){
+		
+		SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | BLACK));
+		system("cls");
+		char help[14][80]={"Press ESC to come back to menu", "HELP", "Buttons to use: ", "ESC - to back to previous menu", "UP/DOWN ARROW - to move", "ENTER - to select",
+							"You can enter a full or incomplete name of station", "You can select a station by: ", "entering its name", "selecting the line", "List of transactions" };
+		system ("mode con cols=100 lines=20");
+		
+		int choice;
+		
+		for (int i=0; i<29; i++) cout<<" "; for (int i=0; i<strlen(help[10]); i++) cout<<help[10][i]; cout<<endl<<endl;
+		cout<<"N"; for (int i=0; i<5; i++) cout<<" ";
+		cout<<"Title"; for (int i=0; i<15-5; i++) cout<<" ";
+		cout<<"Category"; for (int i=0; i<15-8; i++) cout<<" ";
+		cout<<"Period"; for (int i=0; i<10-6; i++) cout<<" ";
+		cout<<"Date"; for (int i=0; i<10; i++) cout<<" ";
+		cout<<"Sum"; for (int i=0; i<10-3; i++) cout<<" ";
+		cout<<"Income"; 
+		cout<<endl;
+		for(int i = 0; i < g1.size(); i++)
+			{
+				cout<<i+1<<". ";
+		    	g1[i].print();
+		    	cout<<endl;
+				}
+	
+	    //SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | CYAN));
+	    cout<<endl;
+	    //for (int i=0; i<13; i++) cout<<" ";cout<<"|"; for (int i=0; i<40; i++) cout<<"-"; cout<<"|"<<endl;
+		//for (int i=0; i<13; i++) cout<<" ";cout<<"|"; 	for (int i=0; i<(40-strlen(help[0]))/2; i++) cout<<" "; for (int i=0; i<strlen(help[0]); i++) cout<<help[0][i]; for (int i=0; i<(40-strlen(help[0]))/2; i++) cout<<" "; cout<<"|"<<endl;
+	    //for (int i=0; i<13; i++) cout<<" ";cout<<"|"; for (int i=0; i<40; i++) cout<<"-"; cout<<"|"<<endl;
+	    
+	    
+	    cout<<endl<<"Sort by: "<<endl<<endl<<"1. Title"<<endl<<"2. Category"<<endl<<"3. Period"<<endl<<"4. Date"<<endl<<"5. Sum"<<endl<<"6. Income"<<endl<<"7. EXIT";
+	    
+	    do{		
+			choice = getch();
+			//cout<<choice<<"   "<<choice-48<<endl;
+			}
+			while((choice<48) || (choice>55 )) ;
+			
+			
+		if (choice == 49){
+			sort(g1.begin(),g1.end(), EntityComp(1));
+			cout<<"sorted by title";
+		}
+		
+		if (choice == 50){
+			sort(g1.begin(),g1.end(), EntityComp(2));
+			cout<<"sorted by category";
+		}	 
+			
+		if (choice == 51)
+		{
+			sort(g1.begin(),g1.end(), EntityComp(3));
+			cout<<"sorted by period";
+		}
+			
+		if (choice == 52){
+			sort(g1.begin(),g1.end(), EntityComp(4));
+			cout<<"sorted by date";
+		}
+			
+		if (choice == 53)
+		{
+			sort(g1.begin(),g1.end(), EntityComp(5));
+			cout<<"sorted by sum"<<endl;
+		}
+				
+			
+		if (choice == 54)
+		{
+			sort(g1.begin(),g1.end(), EntityComp(6));
+			cout<<"sorted by income";
+		}
+		if (choice == 55) StartMenu(1);
+		system("cls");
+		for(int i = 0; i < g1.size(); i++)
+			{
+				cout<<i+1<<". ";
+		    	g1[i].print();
+		    	cout<<endl;
+				}
+						
+	//	do
+    //{
+    //	choice1 = getch();
+
+	//}while(choice1!=ESC);
+	
+   // if (choice1 == 224)
+    //    choice1 = getch();
+    //if (choice1 == ESC)
+	//	StartMenu(1);		
+		//if (choice == 52)
+		
+		
+	    //if (choice == 224)
+	     ///   choice = getch();
+	    ///if (choice == ESC)
+		
+			
+}
+		
 }
 
 
@@ -358,7 +474,7 @@ vector<Trans> Admin(vector<Trans>& g1)
 					for(int i = 0; i < g1.size(); i++)
 					{
 						cout<<i+1<<". ";
-						cout<<g1[i].title;
+						cout<<g1[i].get_title();
 						cout<<endl;
 					}
 					cout<<g1.size()+1<<". GO TO MENU"<<endl;
