@@ -10,7 +10,6 @@
 #include <algorithm>
 #include <unistd.h>
 
-
 #define ESC 27
 #define ENTER 13
 #define UP 72
@@ -33,7 +32,7 @@ class Trans{
 	private:
 		string title;
 	  	string category;
-	  	int period;  
+
 		int day;
 		int month;
 		int year;
@@ -44,7 +43,7 @@ class Trans{
 	public:  
 		string get_title() const{return title;}
 		string get_category() const{return category;}
-		int get_period() const{return period;}
+
 		int get_day() const{return day;}
 		int get_month() const{return month;}
 		int get_year() const{return year;}
@@ -56,7 +55,6 @@ class Trans{
 	{   
 		title = "none";
 	    category = "other";
-	  	period = 0;  
 		day = 1;
 		month = 1;
 		year = 1920;
@@ -65,11 +63,10 @@ class Trans{
 		term = 0;
 	}
 		  
-	Trans(string title1, string category1, int period1, int day1, int month1, int year1, int sum1, bool income1, int term1)
+	Trans(string title1, string category1, int day1, int month1, int year1, int sum1, bool income1, int term1)
 	{  
 		title = title1;
 	    category = category1;
-	  	period = period1;  
 		day = day1;
 		month = month1;
 		year = year1;
@@ -81,7 +78,6 @@ class Trans{
 	Trans(const Trans &b){    
 		title = b.title;
 	    category = b.category;
-	  	period = b.period;  
 		day = b.day;
 		month = b.month;
 		year = b.year;
@@ -95,12 +91,13 @@ class Trans{
 	void print()
 	{
 		int length;
+		int otstup=0;
 			cout<<"   ";
 			cout<<get_title(); 											for (int i=0; i<(15-get_title().size()); i++) cout<<" ";
 			cout<<get_category(); 										for (int i=0; i<(15-get_category().size()); i++) cout<<" ";				
-			cout<<get_term()<<" "; 										length = get_term(); while ((length /= 10) > 0) length++;	for (int i=0; i<(8-length); i++) cout<<" ";					
-			cout<<get_day()<<"."<<get_month()<<"."<<get_year()<<" ";	length = 0; if(get_day() > 9) length++;	if(get_month() > 9) length++; for (int i=0; i<(5-length); i++) cout<<" ";	
-			cout<<get_sum()<<" "; 										length = get_sum(); while( ( length /= 10) > 0 ) length++;	if (get_sum()<10) length=length-2; for (int i=0; i<(6-length); i++) cout<<" ";
+			cout<<get_term()<<" "; 										length = get_term(); while ((length /= 10) > 0) otstup++; for (int i=0; i<(8-otstup); i++) cout<<" ";					
+			cout<<get_day()<<"."<<get_month()<<"."<<get_year()<<" ";	otstup = 0; if(get_day() > 9) otstup++;	if(get_month() > 9) otstup++; for (int i=0; i<(5-otstup); i++) cout<<" ";	
+			cout<<get_sum()<<" "; 										otstup=0; length = get_sum(); while( ( length /= 10) > 0 ) otstup++; for (int i=0; i<(8-otstup); i++) cout<<" ";
 			cout<<get_income();		
 			
 	}
@@ -154,12 +151,19 @@ int main()
     system( "color F0" );
     HANDLE hCons = GetStdHandle(STD_OUTPUT_HANDLE);
     
-	Trans aa;
-	Trans a1( "title", "deposit", 1,12,10,2019, 220, true, 0); 	
-	Trans a2( "name", "credit", 3,2,10,2016, 219, false, 1);	
-	g1.push_back(aa);
+	
+		
+	Trans a1( "first_credit", "credit", 2,10,2016, 20000, true,0);	
+	Trans a2("my_salary", "salary", 1,10,2019, 15000, true, 1);
+	Trans a3("auchan_loot", "food", 24,12,2019, 3000, false, 3);
+	Trans a4("new_notebook", "gadgets", 5,7,2018, 30000, false, 1);
+	Trans a5("water", "food", 22,12,2019, 30, false, 20);
+	
 	g1.push_back(a1);
 	g1.push_back(a2);
+	g1.push_back(a3);
+	g1.push_back(a4);
+	g1.push_back(a5);
 
 	StartMenu(1);
 	return 0; 
@@ -263,7 +267,7 @@ vector<Trans> Add(vector<Trans>& g1)
 		    
 		 }while((yr>2019)|| (yr<1900));
 		 
-		g1.push_back(Trans(ttl, cat, prd, dy, mth, yr, am ,prb, trm));
+		g1.push_back(Trans(ttl, cat, dy, mth, yr, am ,prb, trm));
 		
 		do{		
 			cout<<"Do u want to add 1 more (1/0): ";
@@ -291,8 +295,6 @@ vector<Trans> Add(vector<Trans>& g1)
 
 vector<Trans> Show(vector<Trans>& g1)
 {	
-
-	
 	while(1){
 		
 		SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | BLACK));
@@ -319,18 +321,11 @@ vector<Trans> Show(vector<Trans>& g1)
 		    	cout<<endl;
 				}
 	
-	    //SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | CYAN));
 	    cout<<endl;
-	    //for (int i=0; i<13; i++) cout<<" ";cout<<"|"; for (int i=0; i<40; i++) cout<<"-"; cout<<"|"<<endl;
-		//for (int i=0; i<13; i++) cout<<" ";cout<<"|"; 	for (int i=0; i<(40-strlen(help[0]))/2; i++) cout<<" "; for (int i=0; i<strlen(help[0]); i++) cout<<help[0][i]; for (int i=0; i<(40-strlen(help[0]))/2; i++) cout<<" "; cout<<"|"<<endl;
-	    //for (int i=0; i<13; i++) cout<<" ";cout<<"|"; for (int i=0; i<40; i++) cout<<"-"; cout<<"|"<<endl;
-	    
-	    
 	    cout<<endl<<"Sort by: "<<endl<<endl<<"1. Title"<<endl<<"2. Category"<<endl<<"3. Period"<<endl<<"4. Date"<<endl<<"5. Sum"<<endl<<"6. Income"<<endl<<"7. EXIT";
 	    
 	    do{		
 			choice = getch();
-			//cout<<choice<<"   "<<choice-48<<endl;
 			}
 			while((choice<48) || (choice>55 )) ;
 			
@@ -375,28 +370,9 @@ vector<Trans> Show(vector<Trans>& g1)
 				cout<<i+1<<". ";
 		    	g1[i].print();
 		    	cout<<endl;
-				}
-						
-	//	do
-    //{
-    //	choice1 = getch();
+			}
 
-	//}while(choice1!=ESC);
-	
-   // if (choice1 == 224)
-    //    choice1 = getch();
-    //if (choice1 == ESC)
-	//	StartMenu(1);		
-		//if (choice == 52)
-		
-		
-	    //if (choice == 224)
-	     ///   choice = getch();
-	    ///if (choice == ESC)
-		
-			
-}
-		
+	}
 }
 
 
@@ -404,24 +380,32 @@ int Help()
 {
 	system ("mode con cols=66 lines=20");
 	int choice;
-	char help[10][80]={"Press ESC to come back to menu", "HELP", "Buttons to use: ", "ESC - to back to previous menu", "UP/DOWN ARROW - to move", "ENTER - to select",
-						"You can enter a full or incomplete name of station", "You can select a station by: ", "entering its name", "selecting the line" };
+	char help[13][80]={"Press ESC to come back to menu", "HELP", "Buttons to use: ", "ESC - to back to previous menu(where it`s aviable)", "UP/DOWN ARROW - to move", "ENTER - to select",
+						"You can enter a full or incomplete name of station", "Adding transactions: ", "period, date, income, periodicity, sum - are numerical fields", "title and category must be less than 20 characters in length",
+						"Sorting transactions: ", "You can sort y all fields", "You can sort only in ascending order"};
 	
     system("cls");
     SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | BLUE));
     for (int i=0; i<33 - strlen(help[1])/2; i++) cout<<" "; for (int i=0; i<strlen(help[1]); i++) cout<<help[1][i]; cout<<endl<<endl;
     SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | BLACK));
     
-    for (int i=0; i<2; i++) cout<<" "; cout<<"--"; for (int i=0; i<strlen(help[2]); i++) cout<<help[2][i]; cout<<endl;
-    for (int i=0; i<10; i++) cout<<" "; cout<<"-"; for (int i=0; i<strlen(help[3]); i++) cout<<help[3][i]; cout<<endl;
-    for (int i=0; i<10; i++) cout<<" "; cout<<"-"; for (int i=0; i<strlen(help[4]); i++) cout<<help[4][i]; cout<<endl;
-    for (int i=0; i<10; i++) cout<<" "; cout<<"-"; for (int i=0; i<strlen(help[5]); i++) cout<<help[5][i]; cout<<endl;
+    cout<<"--"; for (int i=0; i<strlen(help[2]); i++) cout<<help[2][i]; cout<<endl;
+    for (int i=0; i<2; i++) cout<<" "; cout<<"-"; for (int i=0; i<strlen(help[3]); i++) cout<<help[3][i]; cout<<endl;
+    for (int i=0; i<2; i++) cout<<" "; cout<<"-"; for (int i=0; i<strlen(help[4]); i++) cout<<help[4][i]; cout<<endl;
+    for (int i=0; i<2; i++) cout<<" "; cout<<"-"; for (int i=0; i<strlen(help[5]); i++) cout<<help[5][i]; cout<<endl;
     cout<<endl;
-    for (int i=0; i<2; i++) cout<<" "; cout<<"--"; for (int i=0; i<strlen(help[7]); i++) cout<<help[7][i]; cout<<endl;
-    for (int i=0; i<10; i++) cout<<" "; cout<<"-"; for (int i=0; i<strlen(help[8]); i++) cout<<help[8][i]; cout<<endl;
-    for (int i=0; i<10; i++) cout<<" "; cout<<"-"; for (int i=0; i<strlen(help[9]); i++) cout<<help[9][i]; cout<<endl;
+    
+    cout<<"--"; for (int i=0; i<strlen(help[7]); i++) cout<<help[7][i]; cout<<endl;
+    for (int i=0; i<2; i++) cout<<" "; cout<<"-"; for (int i=0; i<strlen(help[8]); i++) cout<<help[8][i]; cout<<endl;
+    for (int i=0; i<2; i++) cout<<" "; cout<<"-"; for (int i=0; i<strlen(help[9]); i++) cout<<help[9][i]; cout<<endl;
+    cout<<endl;
+    
+    cout<<"--"; for (int i=0; i<strlen(help[10]); i++) cout<<help[10][i]; cout<<endl;
+    for (int i=0; i<2; i++) cout<<" "; cout<<"-"; for (int i=0; i<strlen(help[11]); i++) cout<<help[11][i]; cout<<endl;
+    for (int i=0; i<2; i++) cout<<" "; cout<<"-"; for (int i=0; i<strlen(help[12]); i++) cout<<help[12][i]; cout<<endl;
+    
     SetConsoleTextAttribute(hCons, (WORD) ((WHITE << 4) | CYAN));
-    cout<<endl;
+    cout<<endl<<endl;
     for (int i=0; i<13; i++) cout<<" ";cout<<"|"; for (int i=0; i<40; i++) cout<<"-"; cout<<"|"<<endl;
 	for (int i=0; i<13; i++) cout<<" ";cout<<"|"; 	for (int i=0; i<(40-strlen(help[0]))/2; i++) cout<<" "; for (int i=0; i<strlen(help[0]); i++) cout<<help[0][i]; for (int i=0; i<(40-strlen(help[0]))/2; i++) cout<<" "; cout<<"|"<<endl;
     for (int i=0; i<13; i++) cout<<" ";cout<<"|"; for (int i=0; i<40; i++) cout<<"-"; cout<<"|"<<endl;
